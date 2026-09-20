@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Digital Collage — Jinhao Wang</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ========================================
+         SITE NAVIGATION
+         ======================================== -->
+
+    <header class="site-header">
+
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="works.html">WORKS</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
+
+    </header>
+
+
+    <!-- ========================================
+         DIGITAL COLLAGE ARCHIVE
+         ======================================== -->
+
+    <main class="project-page">
+
+        <div class="project-header">
+
+            <h1>DIGITAL COLLAGE</h1>
+
+            <button
+                id="sort-button"
+                type="button"
+            >
+                SORT: NEWEST → OLDEST
+            </button>
+
+        </div>
+
+
+        <div id="digital-collage-archive"></div>
+
+    </main>
+
+
+    <!-- ========================================
+         WORK DATA + ARCHIVE LOGIC
+         ======================================== -->
+
+    <script>
+
+        const works = [
+
+            /* ==============================
+               2026
+               ============================== */
+
+            { year: 2026, image: "gdd.png" },
+            { year: 2026, image: "swdf.png" },
+            { year: 2026, image: "qwf.png" },
+            { year: 2026, image: "vvv.png" },
+            { year: 2026, image: "hhgf.png" },
+            { year: 2026, image: "efwqr.png" },
+            { year: 2026, image: "kjgfty.png" },
+            { year: 2026, image: "fghjng.png" },
+            { year: 2026, image: "khyi.png" },
+            { year: 2026, image: "dlu.png" },
+            { year: 2026, image: "iii.png" },
+            { year: 2026, image: "lllp.png" },
+            { year: 2026, image: "hhd.png" },
+            { year: 2026, image: "ddddd.png" },
+            { year: 2026, image: "ll.png" },
+            { year: 2026, image: "ggg.png" },
+            { year: 2026, image: "gfuii.png" },
+            { year: 2026, image: "one.png" },
+            { year: 2026, image: "ffffxxxx.png" },
+            { year: 2026, image: "555555.png" },
+            { year: 2026, image: "666.png" },
+            { year: 2026, image: "bdbbv.png" },
+            { year: 2026, image: "mbbf.png" },
+            { year: 2026, image: "gkitr.png" },
+
+
+            /* ==============================
+               2025
+               ============================== */
+
+            { year: 2025, image: "1.jpg" },
+            { year: 2025, image: "2.jpg" },
+            { year: 2025, image: "3.jpg" },
+            { year: 2025, image: "4.jpg" },
+            { year: 2025, image: "5.jpg" },
+            { year: 2025, image: "6.jpg" },
+            { year: 2025, image: "7.jpg" },
+            { year: 2025, image: "10.jpg" },
+            { year: 2025, image: "11.jpg" },
+            { year: 2025, image: "12.jpg" },
+            { year: 2025, image: "13.jpg" },
+            { year: 2025, image: "15.jpg" },
+            { year: 2025, image: "15.png" },
+            { year: 2025, image: "16.png" }
+
+        ];
+
+
+        /* ========================================
+           ELEMENTS
+           ======================================== */
+
+        const archive =
+            document.getElementById("digital-collage-archive");
+
+        const sortButton =
+            document.getElementById("sort-button");
+
+
+        /* ========================================
+           SORT STATE
+           ======================================== */
+
+        let newestFirst = true;
+
+
+        /* ========================================
+           UPDATE SORT BUTTON
+           ======================================== */
+
+        function updateSortButton() {
+
+            sortButton.textContent = newestFirst
+                ? "SORT: NEWEST → OLDEST"
+                : "SORT: OLDEST → NEWEST";
+
+        }
+
+
+        /* ========================================
+           RENDER WORKS
+           ======================================== */
+
+        function renderWorks() {
+
+            archive.innerHTML = "";
+
+
+            const sortedWorks = works
+                .map((work, index) => ({
+                    ...work,
+                    originalIndex: index
+                }))
+                .sort((a, b) => {
+
+                    return newestFirst
+                        ? b.year - a.year
+                        : a.year - b.year;
+
+                });
+
+
+            let currentYear = null;
+
+            let yearGrid = null;
+
+
+            sortedWorks.forEach(work => {
+
+
+                /* ==============================
+                   NEW YEAR
+                   ============================== */
+
+                if (work.year !== currentYear) {
+
+                    currentYear = work.year;
+
+
+                    /* YEAR HEADING */
+
+                    const yearTitle =
+                        document.createElement("h2");
+
+yearTitle.className =
+    "digital-collage-year";
+
+                    yearTitle.textContent =
+                        currentYear;
+
+                    archive.appendChild(yearTitle);
+
+
+                    /* WORK GRID */
+
+                    yearGrid =
+                        document.createElement("div");
+
+                    yearGrid.className =
+                        "archive-grid";
+
+                    archive.appendChild(yearGrid);
+
+                }
+
+
+                /* ==============================
+                   WORK ITEM
+                   ============================== */
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "archive-item";
+
+
+                /* ==============================
+                   WORK LINK
+                   ============================== */
+
+                const link =
+                    document.createElement("a");
+
+                link.href =
+                    `work.html?id=${work.originalIndex}`;
+
+
+                /* ==============================
+                   WORK IMAGE
+                   ============================== */
+
+                const image =
+                    document.createElement("img");
+
+                image.src =
+                    `images/digital collage/${work.image}`;
+
+                image.alt =
+                    `Digital Collage ${work.year}`;
+
+                image.loading =
+                    "lazy";
+
+
+                /* ==============================
+                   ERROR HANDLING
+                   ============================== */
+
+                image.addEventListener(
+                    "error",
+                    () => {
+
+                        console.log(
+                            "图片加载失败：",
+                            image.src
+                        );
+
+                    }
+                );
+
+
+                /* ==============================
+                   BUILD ITEM
+                   ============================== */
+
+                link.appendChild(image);
+
+                item.appendChild(link);
+
+                yearGrid.appendChild(item);
+
+            });
+
+        }
+
+
+        /* ========================================
+           SORT BUTTON
+           ======================================== */
+
+        sortButton.addEventListener(
+            "click",
+            () => {
+
+                newestFirst =
+                    !newestFirst;
+
+                updateSortButton();
+
+                renderWorks();
+
+            }
+        );
+
+
+        /* ========================================
+           INITIALIZE
+           ======================================== */
+
+        updateSortButton();
+
+        renderWorks();
+
+    </script>
+
+
+</body>
+
+</html>

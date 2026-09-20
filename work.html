@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Untitled — Jinhao Wang</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="work-detail-page">
+
+
+<header class="site-header">
+
+    <nav>
+
+        <a href="index.html">HOME</a>
+
+        <a href="works.html">WORKS</a>
+
+        <a href="about.html">ABOUT</a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="work-detail">
+
+
+    <!-- ==============================
+         PREVIOUS WORK
+         ============================== -->
+
+    <a
+        id="prev-work"
+        class="work-arrow work-arrow-left"
+        href="#"
+        aria-label="Previous work"
+    >
+        ←
+    </a>
+
+
+
+    <!-- ==============================
+         WORK INFORMATION
+         ============================== -->
+
+    <section class="work-info">
+
+        <h1 id="work-title">
+            UNTITLED
+        </h1>
+
+        <p id="work-year">
+            2026
+        </p>
+
+        <p id="work-medium">
+            Digital collage
+        </p>
+
+    </section>
+
+
+
+    <!-- ==============================
+         WORK IMAGE
+         ============================== -->
+
+    <section class="work-detail-image">
+
+        <img
+            id="detail-image"
+            src=""
+            alt=""
+        >
+
+    </section>
+
+
+
+    <!-- ==============================
+         NEXT WORK
+         ============================== -->
+
+    <a
+        id="next-work"
+        class="work-arrow work-arrow-right"
+        href="#"
+        aria-label="Next work"
+    >
+        →
+    </a>
+
+
+    <!-- ==============================
+         BACK TO DIGITAL COLLAGE
+         ============================== -->
+
+    <a
+        class="work-back"
+        href="digital-collage.html"
+    >
+        ← BACK TO DIGITAL COLLAGE
+    </a>
+
+
+</main>
+
+
+
+<script>
+
+
+/* ==========================================
+   WORK DATA
+
+   2026：id 0 - 23
+   2025：id 24 - 37
+
+   ========================================== */
+
+
+const works = [
+
+
+    /* ==========================
+       2026
+       ========================== */
+
+
+    {
+        image: "gdd.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "swdf.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "qwf.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "vvv.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "hhgf.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "efwqr.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "kjgfty.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "fghjng.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "khyi.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "dlu.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "iii.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "lllp.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "hhd.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "ddddd.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "ll.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "ggg.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "gfuii.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "one.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "ffffxxxx.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "555555.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "666.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "bdbbv.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "mbbf.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "gkitr.png",
+        title: "UNTITLED",
+        year: "2026",
+        medium: "Digital collage"
+    },
+
+
+    /* ==========================
+       2025
+       ========================== */
+
+
+    {
+        image: "1.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "2.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "3.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "4.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "5.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "6.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "7.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "10.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "11.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "12.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "13.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "15.jpg",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "15.png",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    },
+
+    {
+        image: "16.png",
+        title: "UNTITLED",
+        year: "2025",
+        medium: "Digital collage"
+    }
+
+];
+
+
+
+/* ==========================================
+   GET CURRENT WORK ID
+   ========================================== */
+
+
+const params =
+    new URLSearchParams(window.location.search);
+
+
+let current =
+    parseInt(params.get("id"), 10);
+
+
+
+/* 没有 id 时默认第一件 */
+
+if (Number.isNaN(current)) {
+
+    current = 0;
+
+}
+
+
+
+/* ==========================================
+   防止编号超出范围
+   ========================================== */
+
+
+if (current < 0) {
+
+    current = works.length - 1;
+
+}
+
+
+if (current >= works.length) {
+
+    current = 0;
+
+}
+
+
+
+/* ==========================================
+   GET PAGE ELEMENTS
+   ========================================== */
+
+
+const image =
+    document.getElementById("detail-image");
+
+
+const title =
+    document.getElementById("work-title");
+
+
+const year =
+    document.getElementById("work-year");
+
+
+const medium =
+    document.getElementById("work-medium");
+
+
+const prev =
+    document.getElementById("prev-work");
+
+
+const next =
+    document.getElementById("next-work");
+
+
+
+/* ==========================================
+   CURRENT WORK
+   ========================================== */
+
+
+const work =
+    works[current];
+
+
+
+/* ==========================================
+   UPDATE PAGE
+   ========================================== */
+
+
+image.src =
+    "images/digital%20collage/" + work.image;
+
+
+image.alt =
+    work.title + " " + work.year;
+
+
+title.textContent =
+    work.title;
+
+
+year.textContent =
+    work.year;
+
+
+medium.textContent =
+    work.medium;
+
+
+
+/* ==========================================
+   PREVIOUS / NEXT
+   ========================================== */
+
+
+const previousIndex =
+    (current - 1 + works.length) % works.length;
+
+
+const nextIndex =
+    (current + 1) % works.length;
+
+
+prev.href =
+    "work.html?id=" + previousIndex;
+
+
+next.href =
+    "work.html?id=" + nextIndex;
+
+
+
+/* ==========================================
+   BROWSER TITLE
+   ========================================== */
+
+
+document.title =
+    work.title + " — Jinhao Wang";
+
+
+
+/* ==========================================
+   KEYBOARD CONTROL
+
+   ← Previous
+   → Next
+
+   ========================================== */
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "ArrowLeft") {
+
+            window.location.href =
+                "work.html?id=" + previousIndex;
+
+        }
+
+
+        if (event.key === "ArrowRight") {
+
+            window.location.href =
+                "work.html?id=" + nextIndex;
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>

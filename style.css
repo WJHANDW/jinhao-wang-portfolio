@@ -1,0 +1,1325 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+
+    background: #f2f2f2;
+}
+
+body {
+    color: #111111;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* =========================================================
+   SITE NAVIGATION
+   ========================================================= */
+
+.site-header {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 28px 40px;
+
+    z-index: 100;
+}
+
+.site-header nav {
+    display: flex;
+    gap: 28px;
+}
+
+.site-header a {
+    color: #111111;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+
+.site-header a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+.home {
+    width: 100%;
+    height: 100vh;
+}
+
+.hero {
+    width: 100%;
+    height: 100vh;
+
+    display: grid;
+
+    grid-template-columns: 60% 40%;
+
+    align-items: center;
+
+    padding: 80px 40px 40px;
+}
+
+.hero-image {
+    width: 100%;
+    height: calc(100vh - 120px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-image img {
+    display: block;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+}
+
+.hero-text {
+    padding-left: 50px;
+    padding-right: 40px;
+}
+
+.hero-text h1 {
+    margin: 0 0 30px;
+
+    font-size: 42px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.hero-text p {
+    margin: 0;
+
+    max-width: 480px;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    opacity: 0.75;
+}
+
+
+/* =========================================================
+   WORKS — PROJECT ARCHIVE
+   ========================================================= */
+
+.works-archive {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 120px 6vw;
+}
+
+.works-archive h1 {
+    margin: 0 0 100px;
+
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.project-list {
+    width: 100%;
+    max-width: 1400px;
+}
+
+.project-link {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 28px 0;
+
+    border-top: 1px solid rgba(17, 17, 17, 0.25);
+
+    color: #111111;
+
+    text-decoration: none;
+
+    font-size: 18px;
+    font-weight: 400;
+
+    transition: opacity 0.2s ease;
+}
+
+.project-link:last-child {
+    border-bottom: 1px solid rgba(17, 17, 17, 0.25);
+}
+
+.project-link:hover {
+    opacity: 0.5;
+}
+
+.project-link span:last-child {
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   PROJECT ARCHIVE PAGES
+   DIGITAL COLLAGE + PAINTING
+   ========================================================= */
+
+.project-page {
+    width: 100%;
+
+    padding: 105px 6vw 140px;
+}
+
+
+/* =========================================================
+   PROJECT HEADER
+   ========================================================= */
+
+.project-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: baseline;
+
+    margin-bottom: 105px;
+}
+
+.project-header h1 {
+    margin: 0;
+
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   SORT BUTTON
+   ========================================================= */
+
+#sort-button {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    background: none;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+
+    line-height: 1.4;
+
+    color: #111111;
+
+    cursor: pointer;
+}
+
+#sort-button:hover {
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   YEAR
+   ========================================================= */
+
+/*
+ * 年份非常小。
+ *
+ * 与作品详情页的信息文字保持一致：
+ * 14px / normal weight
+ *
+ * 使用 !important 是为了防止浏览器默认 h2
+ * 或其他旧 CSS 再次把年份放大。
+ */
+
+/* ========================================
+   YEAR HEADINGS
+   ======================================== */
+
+/* Digital Collage */
+.digital-collage-year {
+    margin: 0 0 55px 0;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+
+    letter-spacing: 0;
+}
+
+
+/* Painting */
+#painting-archive .archive-year {
+    margin: 0 0 55px 0;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    line-height: 1.4;
+
+    letter-spacing: 0;
+}
+
+#painting-archive .archive-year h2 {
+    margin: 0;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    line-height: 1.4;
+
+    letter-spacing: 0;
+}
+
+/* =========================================================
+   DIGITAL COLLAGE
+   ========================================================= */
+
+/*
+ * 两列。
+ *
+ * 每一列代表一个作品位置。
+ * 页面不.project-year h2,
+.archive-year h2 {
+   会再把作品铺满整个屏幕。
+ */
+
+.project-grid {
+    display: grid;
+
+grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+    column-gap: 4vw;
+    row-gap: 150px;
+
+    width: 88%;
+    margin: 0 auto;
+
+    align-items: start;
+}
+
+
+/*
+ * 每个作品的链接区域。
+ */
+
+.project-grid .work-item {
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    text-decoration: none;
+
+    transition: opacity 0.25s ease;
+}
+
+
+/*
+ * 核心：
+ *
+ * 图片不再占满自己的整个半列。
+ *
+ * 50% = 图片与留白大约 1 : 1
+ *
+ * 这样视觉上会明显轻下来。
+ */
+
+.project-grid .work-item img {
+    display: block;
+
+    width: 65%;
+    height: auto;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    border-radius: 0;
+}
+
+.project-grid .work-item:hover {
+    opacity: 0.75;
+}
+
+
+/* =========================================================
+   PAINTING
+   ========================================================= */
+
+#painting-archive {
+    width: 100%;
+}
+
+
+/*
+ * 每一年之间也留出比较大的空间。
+ */
+
+#painting-archive .archive-year {
+    margin-bottom: 180px;
+}
+
+/*
+ * 两列。
+ */
+
+.archive-grid {
+    display: grid;
+
+grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+    column-gap: 4vw;
+    row-gap: 150px;
+
+    width: 88%;
+    margin: 0 auto;
+
+    align-items: start;
+}
+
+
+/*
+ * 每件绘画居中。
+ */
+
+.archive-item {
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    text-decoration: none;
+
+    transition: opacity 0.25s ease;
+}
+
+
+/*
+ * 绘画同样采用约 1 : 1 的
+ * “作品 / 留白”比例。
+ */
+
+.archive-item img {
+    display: block;
+
+    width: 75%;
+    height: auto;
+
+    max-width: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    object-fit: contain;
+}
+
+.archive-item:hover {
+    opacity: 0.75;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .project-page {
+        padding: 80px 20px 100px;
+    }
+
+
+    .project-header {
+        margin-bottom: 70px;
+    }
+
+
+    .project-header h1 {
+        font-size: 26px;
+    }
+
+
+    #sort-button {
+        font-size: 13px;
+    }
+
+
+    /* 年份 */
+
+
+
+
+    /* Digital Collage */
+
+    .project-year {
+        margin-bottom: 110px;
+    }
+
+
+    .project-grid {
+        grid-template-columns: 1fr;
+
+        row-gap: 120px;
+
+        column-gap: 0;
+    }
+
+
+    .project-grid .work-item img {
+        width: 72%;
+    }
+
+
+    /* Painting */
+
+    .archive-year {
+        margin-bottom: 110px;
+    }
+
+
+    .archive-grid {
+        grid-template-columns: 1fr;
+
+        row-gap: 120px;
+
+        column-gap: 0;
+    }
+
+
+    .archive-item img {
+        width: 72%;
+    }
+
+}
+
+.work-detail-page {
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #f2f2f2;
+    color: #111111;
+}
+
+.work-detail {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    display: grid;
+
+    grid-template-columns: 42% 58%;
+
+    align-items: center;
+
+    padding: 80px 7vw 40px;
+}
+
+.work-info {
+    padding-right: 80px;
+}
+
+.work-info h1 {
+    margin: 0 0 35px;
+
+    font-size: 20px;
+    font-weight: 500;
+
+    letter-spacing: 0.08em;
+}
+
+.work-info p {
+    margin: 0 0 10px;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.work-detail-image {
+    width: 100%;
+    height: calc(100vh - 120px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px 40px 20px 0;
+}
+
+.work-detail-image img {
+    display: block;
+
+    max-width: 100%;
+    max-height: calc(100vh - 170px);
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   WORK DETAIL ARROWS
+   ========================================================= */
+
+.work-arrow {
+    position: fixed;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 200;
+
+    width: 50px;
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #111111;
+
+    text-decoration: none;
+
+    font-size: 30px;
+    font-weight: 300;
+
+    opacity: 0.45;
+
+    transition: opacity 0.2s ease;
+}
+
+.work-arrow:hover {
+    opacity: 1;
+}
+
+.work-arrow-left {
+    left: 18px;
+}
+
+.work-arrow-right {
+    right: 18px;
+}
+
+
+/* =========================================================
+   PAINTING DETAIL
+   ========================================================= */
+
+.painting-detail-page {
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #f2f2f2;
+    color: #111111;
+}
+
+.painting-detail {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding: 105px 8vw 35px;
+}
+
+.painting-info {
+    width: 100%;
+
+    margin-bottom: 20px;
+}
+
+.painting-info h1 {
+    margin: 0 0 12px;
+
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.painting-info p {
+    margin: 3px 0;
+
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.painting-detail-image {
+    flex: 1;
+
+    width: 100%;
+    min-height: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.painting-detail-image img {
+    display: block;
+
+    max-width: 80vw;
+    max-height: calc(100vh - 270px);
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   PAINTING DETAIL ARROWS
+   ========================================================= */
+
+.painting-arrow {
+    position: fixed;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 200;
+
+    width: 60px;
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #111111;
+
+    text-decoration: none;
+
+    font-size: 28px;
+    font-weight: 300;
+
+    opacity: 0.8;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.painting-arrow:hover {
+    opacity: 1;
+}
+
+.painting-arrow-left {
+    left: 15px;
+}
+
+.painting-arrow-right {
+    right: 15px;
+}
+
+.painting-arrow-left:hover {
+    transform: translate(-3px, -50%);
+}
+
+.painting-arrow-right:hover {
+    transform: translate(3px, -50%);
+}
+
+.painting-back {
+    position: fixed;
+
+    left: 3vw;
+    bottom: 28px;
+
+    z-index: 200;
+
+    font-size: 13px;
+
+    color: #111111;
+
+    text-decoration: none;
+}
+
+.painting-back:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about-page {
+    background: #f2f2f2;
+    color: #111111;
+}
+
+.about-content {
+    width: 100%;
+    min-height: 100vh;
+
+    display: grid;
+
+    grid-template-columns: 40% 60%;
+
+    padding: 120px 6vw 100px;
+}
+
+.about-photo {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    padding-top: 20px;
+    padding-right: 5vw;
+}
+
+.about-photo img {
+    display: block;
+
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+
+    object-fit: contain;
+}
+
+.about-info {
+    width: 100%;
+    max-width: 680px;
+
+    padding-top: 20px;
+}
+
+.about-top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: baseline;
+
+    margin-bottom: 70px;
+}
+
+.about-top h1 {
+    margin: 0;
+
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.about-section {
+    margin-bottom: 58px;
+}
+
+.about-section h2 {
+    margin: 0 0 24px;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.about-section p {
+    max-width: 620px;
+
+    margin: 0 0 18px;
+
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+.about-section a {
+    color: inherit;
+
+    text-decoration: none;
+}
+
+.about-section a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   LANGUAGE SWITCH
+   ========================================================= */
+
+.language-switch {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 12px;
+}
+
+.language-switch label {
+    cursor: pointer;
+}
+
+.language-switch label:hover {
+    text-decoration: underline;
+}
+
+.language-switch span {
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   RETURN TO WORK CATEGORY
+   ========================================================= */
+
+.work-back {
+    position: fixed;
+
+    left: 50px;
+    bottom: 32px;
+
+    z-index: 20;
+
+    color: #111111;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    line-height: 1.4;
+
+    transition: opacity 0.2s ease;
+}
+
+.work-back:hover {
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* ========================================
+       Navigation
+       ======================================== */
+
+    .site-header {
+        position: relative;
+
+        padding: 20px;
+    }
+
+    .site-header nav {
+        gap: 18px;
+    }
+
+
+    /* ========================================
+       Home
+       ======================================== */
+
+    .home {
+        height: auto;
+    }
+
+    .hero {
+        height: auto;
+
+        display: block;
+
+        padding: 20px;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: auto;
+
+        display: block;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .hero-text {
+        padding: 25px 0 50px;
+    }
+
+    .hero-text h1 {
+        font-size: 32px;
+
+        margin-bottom: 20px;
+    }
+
+    .hero-text p {
+        font-size: 10px;
+    }
+
+
+    /* ========================================
+       Works archive
+       ======================================== */
+
+    .works-archive {
+        padding: 80px 20px 60px;
+    }
+
+    .works-archive h1 {
+        margin-bottom: 60px;
+
+        font-size: 26px;
+    }
+
+    .project-link {
+        padding: 22px 0;
+
+        font-size: 16px;
+    }
+
+
+    /* ========================================
+       Project archive pages
+       ======================================== */
+
+    .project-page {
+        padding: 80px 20px 100px;
+    }
+
+    .project-header {
+        margin-bottom: 70px;
+    }
+
+    .project-header h1 {
+        font-size: 26px;
+    }
+
+
+    /* Digital Collage */
+
+    .project-year {
+        margin-bottom: 110px;
+    }
+
+    .project-year h2 {
+        margin-bottom: 45px;
+
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+
+        row-gap: 100px;
+    }
+
+    .project-grid .work-item img {
+        width: 82%;
+    }
+
+
+    /* Painting */
+
+    .archive-year {
+        margin-bottom: 110px;
+    }
+
+    .archive-year h2 {
+        margin-bottom: 45px;
+
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .archive-grid {
+        grid-template-columns: 1fr;
+
+        row-gap: 100px;
+    }
+
+    .archive-item img {
+        width: 82%;
+    }
+
+
+    /* ========================================
+       Digital collage detail
+       ======================================== */
+
+    .work-detail-page {
+        height: auto;
+
+        min-height: 100vh;
+
+        overflow: visible;
+    }
+
+    .work-detail {
+        height: auto;
+        min-height: 100vh;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        padding: 100px 20px 50px;
+    }
+
+    .work-info {
+        padding-right: 0;
+
+        margin-bottom: 30px;
+    }
+
+    .work-info h1 {
+        font-size: 18px;
+
+        margin-bottom: 20px;
+    }
+
+    .work-info p {
+        font-size: 14px;
+    }
+
+    .work-detail-image {
+        width: 100%;
+        height: auto;
+
+        display: block;
+
+        padding: 0;
+    }
+
+    .work-detail-image img {
+        width: 100%;
+
+        max-width: 100%;
+        max-height: none;
+
+        height: auto;
+    }
+
+    .work-arrow {
+        width: 40px;
+        height: 60px;
+
+        font-size: 24px;
+    }
+
+    .work-arrow-left {
+        left: 5px;
+    }
+
+    .work-arrow-right {
+        right: 5px;
+    }
+
+
+    /* ========================================
+       Painting detail
+       ======================================== */
+
+    .painting-detail-page {
+        height: auto;
+
+        min-height: 100vh;
+
+        overflow: visible;
+    }
+
+    .painting-detail {
+        height: auto;
+        min-height: 100vh;
+
+        padding: 100px 20px 80px;
+    }
+
+    .painting-info {
+        margin-bottom: 25px;
+    }
+
+    .painting-info h1 {
+        font-size: 18px;
+    }
+
+    .painting-info p {
+        font-size: 13px;
+    }
+
+    .painting-detail-image {
+        flex: none;
+
+        width: 100%;
+        height: auto;
+
+        display: block;
+    }
+
+    .painting-detail-image img {
+        width: 100%;
+
+        max-width: 100%;
+        max-height: none;
+
+        height: auto;
+    }
+
+    .painting-arrow {
+        width: 40px;
+        height: 60px;
+
+        font-size: 24px;
+    }
+
+    .painting-arrow-left {
+        left: 5px;
+    }
+
+    .painting-arrow-right {
+        right: 5px;
+    }
+
+    .painting-back {
+        left: 20px;
+        bottom: 20px;
+
+        font-size: 12px;
+    }
+
+
+    /* ========================================
+       About
+       ======================================== */
+
+    .about-content {
+        display: block;
+
+        padding: 40px 6vw 80px;
+    }
+
+    .about-photo {
+        margin-bottom: 50px;
+
+        padding-top: 0;
+        padding-right: 0;
+    }
+
+    .about-photo img {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .about-info {
+        max-width: none;
+
+        padding-top: 0;
+    }
+
+    .about-top {
+        margin-bottom: 55px;
+    }
+
+    .about-top h1 {
+        font-size: 26px;
+    }
+
+    .about-section {
+        margin-bottom: 50px;
+    }
+
+    .about-section p {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+
+    /* ========================================
+       Return to category
+       ======================================== */
+
+    .work-back {
+        left: 20px;
+        bottom: 20px;
+
+        font-size: 13px;
+    }
+
+}

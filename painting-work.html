@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Untitled — Jinhao Wang</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="work-detail-page">
+
+
+<header class="site-header">
+
+    <nav>
+
+        <a href="index.html">HOME</a>
+
+        <a href="works.html">WORKS</a>
+
+        <a href="about.html">ABOUT</a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="work-detail">
+
+
+    <!-- =========================
+         上一件作品
+         ========================= -->
+
+    <a
+        id="prev-work"
+        class="work-arrow work-arrow-left"
+        href="#"
+        aria-label="Previous work"
+    >
+        ←
+    </a>
+
+
+
+    <!-- =========================
+         作品信息
+         ========================= -->
+
+    <section class="work-info">
+
+        <h1 id="work-title">
+            UNTITLED
+        </h1>
+
+        <p id="work-year">
+            2026
+        </p>
+
+        <p id="work-size">
+            100×75cm
+        </p>
+
+        <p id="work-medium">
+            处理过的木板，丙烯颜料，图片，墨水，木块，炭条
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         作品图片
+         ========================= -->
+
+    <section class="work-detail-image">
+
+        <img
+            id="detail-image"
+            src=""
+            alt=""
+        >
+
+    </section>
+
+
+
+    <!-- =========================
+         下一件作品
+         ========================= -->
+
+    <a
+        id="next-work"
+        class="work-arrow work-arrow-right"
+        href="#"
+        aria-label="Next work"
+    >
+        →
+    </a>
+
+
+
+    <!-- =========================
+         返回 Painting
+         ========================= -->
+
+    <a
+        class="work-back"
+        href="painting.html"
+    >
+        ← BACK TO PAINTING
+    </a>
+
+
+</main>
+
+
+
+<script>
+
+
+/* ==========================================
+   绘画作品资料
+   ========================================== */
+
+const works = [
+
+    // =========================
+    // 2026
+    // =========================
+
+    {
+        year: "2026",
+        image: "2026 100×75cm 处理过的木板，丙烯颜料，图片，墨水，木块，炭条.png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 117×120cm 木画框，图片，塑料袋，胶带，丙烯颜料，石膏粉，水墨、塑料板 .png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 15×20×10cm 包装盒，图片，泡泡纸，胶带.png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 40×40cm 处理过的木板，图片，丙烯颜料 .png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 46×60cm 木板，麻布、丙烯颜料，墨水，炭条.png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 50×22cm 木架，丙烯颜料，纸本水彩，布面油画 .png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 50×30cm 木板，丙烯颜料 .png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 76.5×39.5cm 木条，麻布，丙烯颜料，水墨，炭条，工字钉 .png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 80×100cm  木板画框，图片，丙烯颜料，木条 .png"
+    },
+
+    {
+        year: "2026",
+        image: "2026 80×100cm 处理过的木板，丙烯颜料，杂志.png"
+    },
+
+
+    // =========================
+    // 2025
+    // =========================
+
+    {
+        year: "2025",
+        image: "2025 28×23cm 砂纸，丙烯 1.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 39×50cm 纸板，丙烯颜料 .jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 40×30×7cm 快递盒，丙烯颜料 .jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 40×50cm 布面油画.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 48×38.5cm 亚麻布，丙烯颜料.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 48×48cm 帆布，丙烯颜料1.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 48×48cm 帆布，丙烯颜料2.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 48×48cm 帆布，丙烯颜料3.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 48×48cm 帆布，丙烯颜料4.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 50×40cm 亚麻布，丙烯颜料，丙烯上光油.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 50×40cm 布面油画.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 50×40cm 画框，丙烯颜料.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 59×28cm 手提袋，丙烯颜料.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 60×20cm 木板，丙烯.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 60×20cm 木板，丙烯颜料.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 60×28cm 纸袋，丙烯颜料.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "2025 60×40cm 木板，丙烯颜料.jpg"
+    },
+
+    {
+        year: "2025",
+        image: "28×23cm 砂纸，丙烯2.jpg"
+    },
+
+
+    // =========================
+    // 2024
+    // =========================
+
+    {
+        year: "2024",
+        image: "2024 10.5×17.5cm 图片拼贴.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 12×8cm 木板，石膏，图片，胶带.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 15.5×21.5cm 水彩纸，石膏，墨水.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 15×10cm 油画板，色粉，油画颜料，水彩.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 15×16.5cm 铝箔，丙烯颜料，图片.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 16×13.5×1.8cm 木板，门型钉，石膏，柳炭条.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 17.5×21×5cm 纸盒，图像，胶带.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 20.1×30.1cm 木板，石膏，水彩，柳炭条，水粉，碳粉.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 20.3×30.2cm 木板，石膏，柳炭条，碳粉.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 20×30cm 木板画框，图片，丙烯.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 21.7×12.5cm 木板，门型钉，石膏，色粉，水彩，铅笔.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 21×29cm 图片，丙烯颜料.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 22.2×30.2cm 木板，石膏，墨水，色粉，水粉，水彩.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 22×16cm 水彩纸，图片，胶带.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 25.7×35.3cm 水彩纸，色粉，水粉，水彩，墨水.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 27×33.5cm 素描纸，柳炭条，丙烯，色粉.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 27×39cm 素描纸，水粉，油画棒，水彩.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 27×39cm 素描纸，油画棒，色粉，水粉.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 28×29cm 帆布，石膏，丙烯颜料.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 30.1×22.1cm 木板，石膏，碳粉，水彩，水粉，色粉，墨水.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 30.2×20.2cm 木板，宣纸，墨水，水彩.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 30.3×20.4cm 旧油画框，石膏，墨水，白乳胶，色粉，水粉.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 30.5×20.5cm 木板，素描纸，木屑，白乳胶，色粉.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 30×40cm 木板，图片，丙烯.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 30×40cm 油画框，纸，墨水，胶水.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 35×40.5cm 木板，石膏，墨水，色粉，铅笔，水彩，水粉.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 39×27cm 素描纸，水粉，色粉，柳炭条，墨水，留白胶.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 40×40cm 木板，石膏，墨水，水彩.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 50×60cm 画框，手套，粘土，丙烯.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 60×20cm 木板，丙烯.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 60×20cm 木板，石膏粉，水粉颜料.jpg"
+    },
+
+    {
+        year: "2024",
+        image: "2024 97×49cm 柳炭条，帆布.jpg"
+    }
+
+];
+
+
+
+/* ==========================================
+   获取当前作品编号
+   ========================================== */
+
+const params =
+    new URLSearchParams(window.location.search);
+
+
+let current =
+    parseInt(params.get("id"), 10);
+
+
+/* 没有 id 时默认第一件 */
+
+if (Number.isNaN(current)) {
+
+    current = 0;
+
+}
+
+
+/* 防止编号超出范围 */
+
+if (current < 0) {
+
+    current = works.length - 1;
+
+}
+
+
+if (current >= works.length) {
+
+    current = 0;
+
+}
+
+
+
+/* ==========================================
+   获取页面元素
+   ========================================== */
+
+const image =
+    document.getElementById("detail-image");
+
+const title =
+    document.getElementById("work-title");
+
+const year =
+    document.getElementById("work-year");
+
+const size =
+    document.getElementById("work-size");
+
+const medium =
+    document.getElementById("work-medium");
+
+const prev =
+    document.getElementById("prev-work");
+
+const next =
+    document.getElementById("next-work");
+
+
+
+/* ==========================================
+   当前作品
+   ========================================== */
+
+const work =
+    works[current];
+
+
+
+/* ==========================================
+   从文件名提取尺寸和材料
+   ========================================== */
+
+/*
+   例如：
+
+   2026 117×120cm 木画框，图片，塑料袋，胶带...
+
+   会自动得到：
+
+   尺寸：
+   117×120cm
+
+   材料：
+   木画框，图片，塑料袋，胶带...
+*/
+
+
+let information =
+    work.image.replace(/\.[^/.]+$/, "");
+
+
+/* 去掉最前面的年份 */
+
+information =
+    information.replace(/^\d{4}\s+/, "");
+
+
+/* 尺寸 */
+
+const sizeMatch =
+    information.match(/^(\S+)/);
+
+
+/* 材料 */
+
+let dimensions = "";
+
+let materials = "";
+
+
+if (sizeMatch) {
+
+    dimensions =
+        sizeMatch[1];
+
+    materials =
+        information
+            .substring(dimensions.length)
+            .trim();
+
+}
+
+
+/* ==========================================
+   更新页面
+   ========================================== */
+
+image.src =
+    encodeURI(
+        "images/painting/" +
+        work.year +
+        "/" +
+        work.image
+    );
+
+
+image.alt =
+    work.image;
+
+
+title.textContent =
+    "UNTITLED";
+
+
+year.textContent =
+    work.year;
+
+
+size.textContent =
+    dimensions;
+
+
+medium.textContent =
+    materials;
+
+
+
+/* ==========================================
+   上一件 / 下一件
+   ========================================== */
+
+const previousIndex =
+    (current - 1 + works.length) %
+    works.length;
+
+
+const nextIndex =
+    (current + 1) %
+    works.length;
+
+
+prev.href =
+    "painting-work.html?id=" +
+    previousIndex;
+
+
+next.href =
+    "painting-work.html?id=" +
+    nextIndex;
+
+
+
+/* ==========================================
+   浏览器标题
+   ========================================== */
+
+document.title =
+    "UNTITLED — Jinhao Wang";
+
+
+
+/* ==========================================
+   键盘控制
+   ========================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "ArrowLeft") {
+
+            window.location.href =
+                "painting-work.html?id=" +
+                previousIndex;
+
+        }
+
+
+        if (event.key === "ArrowRight") {
+
+            window.location.href =
+                "painting-work.html?id=" +
+                nextIndex;
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>

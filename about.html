@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About — Jinhao Wang</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ========================================
+           ABOUT PAGE
+           ======================================== */
+
+        .about-page {
+            background: #eeeeee;
+            color: #111111;
+        }
+
+
+        /* ========================================
+           LANGUAGE SWITCH
+           ======================================== */
+
+        .language-switch {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .language-switch input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .language-switch label {
+            color: #999999;
+            cursor: pointer;
+            user-select: none;
+
+            padding-bottom: 3px;
+
+            border-bottom: 1px solid transparent;
+
+            transition:
+                color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .language-switch label:hover {
+            color: #111111;
+        }
+
+        /* English selected */
+
+        #language-en:checked + label[for="language-en"] {
+            color: #111111;
+            border-bottom-color: #111111;
+        }
+
+        /* Chinese selected */
+
+        #language-zh:checked + label[for="language-zh"] {
+            color: #111111;
+            border-bottom-color: #111111;
+        }
+
+
+        /* ========================================
+           LANGUAGE CONTENT
+           ======================================== */
+
+        #english-content {
+            display: block;
+        }
+
+        #chinese-content {
+            display: none;
+        }
+
+        body:has(#language-zh:checked) #english-content {
+            display: none;
+        }
+
+        body:has(#language-zh:checked) #chinese-content {
+            display: block;
+        }
+
+
+        /* ========================================
+           ABOUT CONTENT
+           ======================================== */
+
+        .about-content {
+            min-height: 100vh;
+
+            padding: 130px 6vw 100px 6vw;
+
+            display: grid;
+            grid-template-columns: 38% 62%;
+            gap: 5vw;
+
+            box-sizing: border-box;
+        }
+
+
+        /* ========================================
+           PHOTO
+           ======================================== */
+
+        .about-photo {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .about-photo img {
+            display: block;
+
+            width: 100%;
+            max-width: 430px;
+            height: auto;
+
+            object-fit: contain;
+        }
+
+
+        /* ========================================
+           INFORMATION
+           ======================================== */
+
+        .about-info {
+            max-width: 700px;
+            padding-right: 3vw;
+        }
+
+
+        /* ========================================
+           NAME + LANGUAGE
+           ======================================== */
+
+        .about-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            margin-bottom: 70px;
+        }
+
+        .about-top h1 {
+            margin: 0;
+
+            font-size: 28px;
+            font-weight: 400;
+            line-height: 1.2;
+
+            letter-spacing: 0.01em;
+        }
+
+
+        /* ========================================
+           SECTIONS
+           ======================================== */
+
+        .about-section {
+            margin-bottom: 58px;
+        }
+
+        .about-section h2 {
+            margin: 0 0 18px 0;
+
+            font-size: 14px;
+            font-weight: 400;
+
+            letter-spacing: 0.03em;
+        }
+
+        .about-section p {
+            margin: 0 0 18px 0;
+
+            font-size: 15px;
+            line-height: 1.65;
+            font-weight: 400;
+        }
+
+        .about-section p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* ========================================
+           CONTACT
+           ======================================== */
+
+        .about-contact p {
+            margin-bottom: 8px;
+        }
+
+        .about-contact a {
+            color: #111111;
+            text-decoration: none;
+        }
+
+        .about-contact a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ========================================
+           MOBILE
+           ======================================== */
+
+        @media (max-width: 700px) {
+
+            .about-content {
+                min-height: auto;
+
+                padding: 110px 25px 70px 25px;
+
+                display: flex;
+                flex-direction: column;
+
+                gap: 60px;
+            }
+
+            .about-photo {
+                order: 1;
+            }
+
+            .about-photo img {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .about-info {
+                order: 2;
+
+                max-width: none;
+                padding-right: 0;
+            }
+
+            .about-top {
+                margin-bottom: 55px;
+            }
+
+            .about-top h1 {
+                font-size: 24px;
+            }
+
+            .about-section {
+                margin-bottom: 45px;
+            }
+
+            .about-section p {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            .language-switch {
+                font-size: 12px;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body class="about-page">
+
+
+    <!-- ========================================
+         SITE NAVIGATION
+         ======================================== -->
+
+    <header class="site-header">
+
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="works.html">WORKS</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
+
+    </header>
+
+
+    <!-- ========================================
+         ABOUT PAGE
+         ======================================== -->
+
+    <main class="about-content">
+
+
+        <!-- ====================================
+             ARTIST PHOTO
+             ==================================== -->
+
+        <section class="about-photo">
+
+            <img
+                src="images/digital collage/artist-photo.png"
+                alt="Jinhao Wang"
+            >
+
+        </section>
+
+
+        <!-- ====================================
+             ARTIST INFORMATION
+             ==================================== -->
+
+        <section class="about-info">
+
+
+            <!-- ==================================
+                 NAME + LANGUAGE SWITCH
+                 ================================== -->
+
+            <div class="about-top">
+
+                <h1 translate="no">
+                    Jinhao Wang
+                </h1>
+
+
+                <div class="language-switch">
+
+                    <input
+                        type="radio"
+                        name="language"
+                        id="language-en"
+                        checked
+                    >
+
+                    <label for="language-en">
+                        EN
+                    </label>
+
+
+                    <span>/</span>
+
+
+                    <input
+                        type="radio"
+                        name="language"
+                        id="language-zh"
+                    >
+
+                    <label for="language-zh">
+                        中文
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 ENGLISH
+                 ================================== -->
+
+            <div id="english-content">
+
+
+                <!-- Artist Statement -->
+
+                <section class="about-section">
+
+                    <h2>ARTIST STATEMENT</h2>
+
+                    <p>
+                        Jinhao Wang (b. 2003) graduated from the Oil Painting
+                        Department of Beijing Institute of Fashion Technology
+                        and currently lives and works in Beijing.
+                    </p>
+
+                    <p>
+                        His practice involves painting and digital art,
+                        exploring structural violence within social
+                        relationships, particularly the effects of patriarchal
+                        society on individuals.
+                    </p>
+
+                    <p>
+                        Through a direct and unembellished approach to painting,
+                        Wang depicts figures that evoke a sense of fear,
+                        grotesqueness, and alienation.
+                    </p>
+
+                    <p>
+                        His recent digital collage series uses computer-generated
+                        imagery, searching for images within pornography-related
+                        videos and political news, which are then fragmented
+                        and recombined into absurd and visually stimulating works.
+                    </p>
+
+                </section>
+
+
+                <!-- Education -->
+
+                <section class="about-section">
+
+                    <h2>EDUCATION</h2>
+
+                    <p>
+                        2026<br>
+                        Bachelor of Arts, Oil Painting Department,<br>
+                        Beijing Institute of Fashion Technology
+                    </p>
+
+                </section>
+
+
+                <!-- Exhibitions -->
+
+                <section class="about-section">
+
+                    <h2>EXHIBITIONS</h2>
+
+                    <p>
+                        2026<br>
+                        <em>
+                            2026 Beijing Institute of Fashion Technology
+                            Undergraduate Graduation Exhibition — Chengxi
+                        </em><br>
+                        Beijing Institute of Fashion Technology,
+                        Tongzhou Campus, Beijing, China
+                    </p>
+
+                    <p>
+                        2025<br>
+                        <em>
+                            Artists' Perspective on the Engine Laboratory II
+                        </em><br>
+                        National Experimental Teaching Demonstration Center
+                        for Ground Mobile Equipment,
+                        Beijing Institute of Technology, Beijing, China
+                    </p>
+
+                </section>
+
+
+                <!-- Contact -->
+
+                <section class="about-section about-contact">
+
+                    <h2>CONTACT</h2>
+
+                    <p>
+                        Email:
+                        <a href="mailto:wjh5290876@gmail.com">
+                            wjh5290876@gmail.com
+                        </a>
+                    </p>
+
+                    <p>
+                        Instagram:
+                        <a
+                            href="https://www.instagram.com/jinhao1654/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            @jinhao1654
+                        </a>
+                    </p>
+
+                </section>
+
+            </div>
+
+
+            <!-- ==================================
+                 CHINESE
+                 ================================== -->
+
+            <div id="chinese-content">
+
+
+                <!-- 艺术家自述 -->
+
+                <section class="about-section">
+
+                    <h2>艺术家自述</h2>
+
+                    <p>
+                        王锦皓（2003—），毕业于北京服装学院油画系，
+                        现工作生活于北京。
+                    </p>
+
+                    <p>
+                        创作涉及绘画和数字艺术，探讨社会关系中的结构性暴力，
+                        尤其关注父权社会对个体的影响。
+                    </p>
+
+                    <p>
+                        他通过直接的绘画方式不加修饰地去表现，
+                        画面里的人物给人以恐怖、怪诞与异化的感受。
+                    </p>
+
+                    <p>
+                        近年的数字拼贴系列使用电脑制图，
+                        在色情视频和政治新闻中搜寻图片，
+                        将其拆分并重新组合，
+                        制作荒诞而又充满视觉刺激的图像作品。
+                    </p>
+
+                </section>
+
+
+                <!-- 教育 -->
+
+                <section class="about-section">
+
+                    <h2>教育</h2>
+
+                    <p>
+                        2026<br>
+                        北京服装学院油画系 学士学位
+                    </p>
+
+                </section>
+
+
+                <!-- 展览 -->
+
+                <section class="about-section">
+
+                    <h2>展览</h2>
+
+                    <p>
+                        2026<br>
+                        《2026北京服装学院本科生毕业作品展——成蹊》<br>
+                        北京服装学院通州校区，北京，中国
+                    </p>
+
+                    <p>
+                        2025<br>
+                        《艺术家眼中的发动机实验室（二）》<br>
+                        北京理工大学地面机动装备国家级实验教学示范中心，
+                        北京，中国
+                    </p>
+
+                </section>
+
+
+                <!-- 联系方式 -->
+
+                <section class="about-section about-contact">
+
+                    <h2>联系方式</h2>
+
+                    <p>
+                        邮箱：
+                        <a href="mailto:wjh5290876@gmail.com">
+                            wjh5290876@gmail.com
+                        </a>
+                    </p>
+
+                    <p>
+                        Instagram：
+                        <a
+                            href="https://www.instagram.com/jinhao1654/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            @jinhao1654
+                        </a>
+                    </p>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
