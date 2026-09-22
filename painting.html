@@ -528,15 +528,19 @@
 
                     /* Create work image */
 
-                    const image =
-                        document.createElement("img");
+/* Create work image */
 
-                    image.src = encodeURI(
-                        "images/painting/" +
-                        work.year +
-                        "/" +
-                        work.image
-                    );
+                 const image =
+                     document.createElement("img");
+
+                 const thumbName = work.image.replace(/\.[^/.]+$/, "") + ".jpg";
+
+                 image.src = encodeURI(
+                     "images/painting/" +
+                     work.year +
+                     "/thumbs/" +
+                     thumbName
+                 );
 
                     image.alt =
                         "Painting " + work.year;
