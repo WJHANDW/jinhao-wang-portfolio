@@ -241,11 +241,11 @@ yearTitle.className =
                    WORK IMAGE
                    ============================== */
 
-                const image =
+const image =
                     document.createElement("img");
 
-                image.src =
-                    `images/digital collage/${work.image}`;
+                const thumbName = work.image.replace(/\.[^/.]+$/, "") + ".jpg";
+                image.src = `images/digital collage/thumbs/${thumbName}`;
 
                 image.alt =
                     `Digital Collage ${work.year}`;
