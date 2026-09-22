@@ -1,1 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 黑色底框，带微小圆角 -->
+  <rect width="64" height="64" rx="10" fill="#111111" />
+
+  <!-- 头部与尖耳轮廓 -->
+  <path d="M 12 48 L 12 28 L 24 10 L 32 26 L 48 26 L 56 36 L 56 48 Z" fill="#ffffff" />
+
+  <!-- 暴戾突出的黑色眼睛与泪痕空隙 -->
+  <ellipse cx="28" cy="31" rx="4" ry="2.5" fill="#111111" />
+  
+  <!-- 下垂的一滴泪 -->
+  <path d="M 28 35 C 26 38, 26 41, 28 41 C 30 41, 30 38, 28 35 Z" fill="#111111" />
+
+  <!-- 张开的下颌与锯齿尖牙镂空 -->
+  <!-- 吻部裂口 -->
+  <path d="M 40 40 L 56 40 L 56 46 L 40 46 Z" fill="#111111" />
+  <!-- 上排与下排锐利白牙 -->
+  <polygon points="41,40 43,43 45,40" fill="#ffffff" />
+  <polygon points="45,40 47,43 49,40" fill="#ffffff" />
+  <polygon points="49,40 51,43 53,40" fill="#ffffff" />
+  <polygon points="42,46 44,43 46,46" fill="#ffffff" />
+  <polygon points="46,46 48,43 50,46" fill="#ffffff" />
+  <polygon points="50,46 52,43 54,46" fill="#ffffff" />
+</svg>
 
