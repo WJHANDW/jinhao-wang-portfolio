@@ -250,8 +250,7 @@ a {
     color: #111111;
 
     cursor: pointer;
-white-space: nowrap;
-   
+    white-space: nowrap;
 }
 
 #sort-button:hover {
@@ -260,22 +259,8 @@ white-space: nowrap;
 
 
 /* =========================================================
-   YEAR
-   ========================================================= */
-
-/*
- * 年份非常小。
- *
- * 与作品详情页的信息文字保持一致：
- * 14px / normal weight
- *
- * 使用 !important 是为了防止浏览器默认 h2
- * 或其他旧 CSS 再次把年份放大。
- */
-
-/* ========================================
    YEAR HEADINGS
-   ======================================== */
+   ========================================================= */
 
 /* Digital Collage */
 .digital-collage-year {
@@ -312,43 +297,25 @@ white-space: nowrap;
     letter-spacing: 0;
 }
 
-/* =========================================================
-   DIGITAL COLLAGE
-   ========================================================= */
 
-/*
- * 两列。
- *
- * 每一列代表一个作品位置。
- * 页面不.project-year h2,
-.archive-year h2 {
-   会再把作品铺满整个屏幕。
- */
+/* =========================================================
+   DIGITAL COLLAGE (MASONRY)
+   ========================================================= */
 
 .project-grid {
     columns: 3;
-    column-gap: 24px;
-    width: 100%;
+    column-gap: 28px;
+    width: 76%;
+    max-width: 1120px;
+    margin: 0 auto;
 }
-
-
-
-
-
-/*
- * 核心：
- *
- * 图片不再占满自己的整个半列。
- *
- * 50% = 图片与留白大约 1 : 1
- *
- * 这样视觉上会明显轻下来。
- */
 
 .project-grid .work-item {
     display: block;
     break-inside: avoid;
-    margin-bottom: 32px;
+    margin-bottom: 80px;
+    text-decoration: none;
+    transition: opacity 0.25s ease;
 }
 
 .project-grid .work-item img {
@@ -363,64 +330,31 @@ white-space: nowrap;
 
 
 /* =========================================================
-   PAINTING
+   PAINTING (MASONRY)
    ========================================================= */
 
 #painting-archive {
     width: 100%;
 }
 
-
-/*
- * 每一年之间也留出比较大的空间。
- */
-
 #painting-archive .archive-year {
-    margin-bottom: 180px;
+    margin-bottom: 140px;
 }
-
-/*
- * 两列。
- */
 
 .archive-grid {
     columns: 3;
-    column-gap: 24px;
-    width: 100%;
+    column-gap: 28px;
+    width: 76%;
+    max-width: 1120px;
+    margin: 0 auto;
 }
-
-
-/*
- * 每件绘画居中。
- */
-
-.archive-item {
-    display: flex;
-
-    justify-content: center;
-    align-items: flex-start;
-
-    width: 100%;
-
-    margin: 0;
-
-    padding: 0;
-
-    text-decoration: none;
-
-    transition: opacity 0.25s ease;
-}
-
-
-/*
- * 绘画同样采用约 1 : 1 的
- * “作品 / 留白”比例。
- */
 
 .archive-item {
     display: block;
     break-inside: avoid;
-    margin-bottom: 32px;
+    margin-bottom: 80px;
+    text-decoration: none;
+    transition: opacity 0.25s ease;
 }
 
 .archive-item img {
@@ -435,78 +369,8 @@ white-space: nowrap;
 
 
 /* =========================================================
-   MOBILE
+   WORK DETAIL — COLLAGE
    ========================================================= */
-
-@media (max-width: 700px) {
-
-    .project-page {
-        padding: 80px 20px 100px;
-    }
-
-
-    .project-header {
-        margin-bottom: 70px;
-    }
-
-
-    .project-header h1 {
-        font-size: 26px;
-    }
-
-
-    #sort-button {
-        font-size: 13px;
-    }
-
-
-    /* 年份 */
-
-
-
-
-    /* Digital Collage */
-
-    .project-year {
-        margin-bottom: 110px;
-    }
-
-
-    .project-grid {
-        grid-template-columns: 1fr;
-
-        row-gap: 120px;
-
-        column-gap: 0;
-    }
-
-
-    .project-grid .work-item img {
-        width: 72%;
-    }
-
-
-    /* Painting */
-
-    .archive-year {
-        margin-bottom: 110px;
-    }
-
-
-    .archive-grid {
-        grid-template-columns: 1fr;
-
-        row-gap: 120px;
-
-        column-gap: 0;
-    }
-
-
-    .archive-item img {
-        width: 72%;
-    }
-
-}
 
 .work-detail-page {
     width: 100%;
@@ -934,13 +798,9 @@ white-space: nowrap;
 
 @media (max-width: 700px) {
 
-    /* ========================================
-       Navigation
-       ======================================== */
-
+    /* Navigation */
     .site-header {
         position: relative;
-
         padding: 20px;
     }
 
@@ -948,27 +808,20 @@ white-space: nowrap;
         gap: 18px;
     }
 
-
-    /* ========================================
-       Home
-       ======================================== */
-
+    /* Home */
     .home {
         height: auto;
     }
 
     .hero {
         height: auto;
-
         display: block;
-
         padding: 20px;
     }
 
     .hero-image {
         width: 100%;
         height: auto;
-
         display: block;
     }
 
@@ -983,7 +836,6 @@ white-space: nowrap;
 
     .hero-text h1 {
         font-size: 32px;
-
         margin-bottom: 20px;
     }
 
@@ -991,32 +843,22 @@ white-space: nowrap;
         font-size: 10px;
     }
 
-
-    /* ========================================
-       Works archive
-       ======================================== */
-
+    /* Works archive */
     .works-archive {
         padding: 80px 20px 60px;
     }
 
     .works-archive h1 {
         margin-bottom: 60px;
-
         font-size: 26px;
     }
 
     .project-link {
         padding: 22px 0;
-
         font-size: 16px;
     }
 
-
-    /* ========================================
-       Project archive pages
-       ======================================== */
-
+    /* Project archive pages */
     .project-page {
         padding: 80px 20px 100px;
     }
@@ -1029,43 +871,42 @@ white-space: nowrap;
         font-size: 26px;
     }
 
+    #sort-button {
+        font-size: 13px;
+    }
 
-    /* Digital Collage */
-
+    /* Digital Collage Mobile */
     .project-year {
-        margin-bottom: 110px;
+        margin-bottom: 80px;
     }
 
     .project-year h2 {
-        margin-bottom: 45px;
-
+        margin-bottom: 35px;
         font-size: 14px;
         font-weight: 400;
     }
 
-.project-grid {
+    .project-grid {
         columns: 1;
         column-gap: 0;
+        width: 100%;
     }
 
     .project-grid .work-item {
-        margin-bottom: 60px;
+        margin-bottom: 50px;
     }
 
     .project-grid .work-item img {
         width: 100%;
     }
 
-
-    /* Painting */
-
+    /* Painting Mobile */
     .archive-year {
-        margin-bottom: 110px;
+        margin-bottom: 80px;
     }
 
     .archive-year h2 {
-        margin-bottom: 45px;
-
+        margin-bottom: 35px;
         font-size: 14px;
         font-weight: 400;
     }
@@ -1073,51 +914,40 @@ white-space: nowrap;
     .archive-grid {
         columns: 1;
         column-gap: 0;
+        width: 100%;
     }
 
     .archive-item {
-        margin-bottom: 60px;
+        margin-bottom: 50px;
     }
 
     .archive-item img {
         width: 100%;
     }
 
-
-    /* ========================================
-       Digital collage detail
-       ======================================== */
-
+    /* Digital collage detail Mobile */
     .work-detail-page {
         height: auto;
-
         min-height: 100vh;
-
         overflow: visible;
     }
 
     .work-detail {
         height: auto;
         min-height: 100vh;
-
         display: flex;
-
         flex-direction: column;
-
         align-items: stretch;
-
         padding: 100px 20px 50px;
     }
 
     .work-info {
         padding-right: 0;
-
         margin-bottom: 30px;
     }
 
     .work-info h1 {
         font-size: 18px;
-
         margin-bottom: 20px;
     }
 
@@ -1128,25 +958,20 @@ white-space: nowrap;
     .work-detail-image {
         width: 100%;
         height: auto;
-
         display: block;
-
         padding: 0;
     }
 
     .work-detail-image img {
         width: 100%;
-
         max-width: 100%;
         max-height: none;
-
         height: auto;
     }
 
     .work-arrow {
         width: 40px;
         height: 60px;
-
         font-size: 24px;
     }
 
@@ -1158,23 +983,16 @@ white-space: nowrap;
         right: 5px;
     }
 
-
-    /* ========================================
-       Painting detail
-       ======================================== */
-
+    /* Painting detail Mobile */
     .painting-detail-page {
         height: auto;
-
         min-height: 100vh;
-
         overflow: visible;
     }
 
     .painting-detail {
         height: auto;
         min-height: 100vh;
-
         padding: 100px 20px 80px;
     }
 
@@ -1192,26 +1010,21 @@ white-space: nowrap;
 
     .painting-detail-image {
         flex: none;
-
         width: 100%;
         height: auto;
-
         display: block;
     }
 
     .painting-detail-image img {
         width: 100%;
-
         max-width: 100%;
         max-height: none;
-
         height: auto;
     }
 
     .painting-arrow {
         width: 40px;
         height: 60px;
-
         font-size: 24px;
     }
 
@@ -1226,24 +1039,17 @@ white-space: nowrap;
     .painting-back {
         left: 20px;
         bottom: 20px;
-
         font-size: 12px;
     }
 
-
-    /* ========================================
-       About
-       ======================================== */
-
+    /* About Mobile */
     .about-content {
         display: block;
-
         padding: 40px 6vw 80px;
     }
 
     .about-photo {
         margin-bottom: 50px;
-
         padding-top: 0;
         padding-right: 0;
     }
@@ -1255,7 +1061,6 @@ white-space: nowrap;
 
     .about-info {
         max-width: none;
-
         padding-top: 0;
     }
 
@@ -1276,16 +1081,10 @@ white-space: nowrap;
         line-height: 1.8;
     }
 
-
-    /* ========================================
-       Return to category
-       ======================================== */
-
+    /* Return to category */
     .work-back {
         left: 20px;
         bottom: 20px;
-
         font-size: 13px;
     }
-
 }
