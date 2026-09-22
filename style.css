@@ -326,41 +326,13 @@ white-space: nowrap;
  */
 
 .project-grid {
-    display: grid;
-
-grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-    column-gap: 4vw;
-    row-gap: 150px;
-
-    width: 88%;
-    margin: 0 auto;
-
-    align-items: start;
-}
-
-
-/*
- * 每个作品的链接区域。
- */
-
-.project-grid .work-item {
-    display: flex;
-
-    justify-content: center;
-    align-items: flex-start;
-
+    columns: 3;
+    column-gap: 24px;
     width: 100%;
-
-    margin: 0;
-
-    padding: 0;
-
-    text-decoration: none;
-
-    transition: opacity 0.25s ease;
 }
+
+
+
 
 
 /*
@@ -373,19 +345,16 @@ grid-template-columns:
  * 这样视觉上会明显轻下来。
  */
 
+.project-grid .work-item {
+    display: block;
+    break-inside: avoid;
+    margin-bottom: 32px;
+}
+
 .project-grid .work-item img {
     display: block;
-
-    width: 65%;
+    width: 100%;
     height: auto;
-
-    max-width: 100%;
-
-    margin: 0;
-
-    padding: 0;
-
-    border-radius: 0;
 }
 
 .project-grid .work-item:hover {
@@ -415,18 +384,9 @@ grid-template-columns:
  */
 
 .archive-grid {
-    display: grid;
-
-grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-    column-gap: 4vw;
-    row-gap: 150px;
-
-    width: 88%;
-    margin: 0 auto;
-
-    align-items: start;
+    columns: 3;
+    column-gap: 24px;
+    width: 100%;
 }
 
 
@@ -457,18 +417,16 @@ grid-template-columns:
  * “作品 / 留白”比例。
  */
 
+.archive-item {
+    display: block;
+    break-inside: avoid;
+    margin-bottom: 32px;
+}
+
 .archive-item img {
     display: block;
-
-    width: 75%;
+    width: 100%;
     height: auto;
-
-    max-width: 100%;
-
-    margin: 0;
-    padding: 0;
-
-    object-fit: contain;
 }
 
 .archive-item:hover {
@@ -1085,14 +1043,17 @@ grid-template-columns:
         font-weight: 400;
     }
 
-    .project-grid {
-        grid-template-columns: 1fr;
+.project-grid {
+        columns: 1;
+        column-gap: 0;
+    }
 
-        row-gap: 100px;
+    .project-grid .work-item {
+        margin-bottom: 60px;
     }
 
     .project-grid .work-item img {
-        width: 82%;
+        width: 100%;
     }
 
 
@@ -1110,13 +1071,16 @@ grid-template-columns:
     }
 
     .archive-grid {
-        grid-template-columns: 1fr;
+        columns: 1;
+        column-gap: 0;
+    }
 
-        row-gap: 100px;
+    .archive-item {
+        margin-bottom: 60px;
     }
 
     .archive-item img {
-        width: 82%;
+        width: 100%;
     }
 
 
