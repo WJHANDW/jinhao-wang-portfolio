@@ -250,6 +250,8 @@ a {
     color: #111111;
 
     cursor: pointer;
+white-space: nowrap;
+   
 }
 
 #sort-button:hover {
