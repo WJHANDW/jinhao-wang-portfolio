@@ -848,7 +848,7 @@ a {
         gap: 18px;
     }
 
-    /* Home */
+/* Home */
     .home {
         height: auto;
     }
@@ -856,7 +856,7 @@ a {
     .hero {
         height: auto;
         display: block;
-        padding: 20px;
+        padding: 90px 20px 40px; /* 顶部 90px 让出导航空间，左右 20px，底部 40px */
     }
 
     .hero-image {
