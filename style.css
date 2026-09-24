@@ -37,6 +37,10 @@ a {
    SITE NAVIGATION (SMART SLIDE HEADER)
    ========================================================= */
 
+/* =========================================================
+   SITE NAVIGATION (SMART SLIDE HEADER WITH GRADIENT FADE)
+   ========================================================= */
+
 .site-header {
     position: fixed;
 
@@ -45,11 +49,25 @@ a {
 
     width: 100%;
 
-    padding: 28px 40px;
+    padding: 28px 40px 36px;
 
     z-index: 100;
 
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* 
+     * 核心：左侧半透明衬底保护文字，向右平滑淡出至完全透明 
+     */
+    background: linear-gradient(
+        to right,
+        rgba(242, 242, 242, 0.96) 0%,
+        rgba(242, 242, 242, 0.92) 220px,
+        rgba(242, 242, 242, 0.6) 340px,
+        rgba(242, 242, 242, 0) 480px
+    );
+
+    /* 允许穿透点击：右侧空白区域不会阻碍点击下方的艺术作品 */
+    pointer-events: none;
 }
 
 .site-header.header-hidden {
@@ -59,8 +77,10 @@ a {
 .site-header nav {
     display: flex;
     gap: 28px;
-}
 
+    /* 恢复文字链接的正常点击 */
+    pointer-events: auto;
+}
 .site-header a {
     color: #111111;
 
