@@ -12,6 +12,90 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
+    <style>
+        /* ==========================================
+           LIGHTBOX — FROSTED FLOAT (方案 3: 磨砂呼吸放大)
+           ========================================== */
+
+        /* 鼠标悬停在作品上显示放大光标 */
+        .work-detail-image img {
+            cursor: zoom-in;
+        }
+
+        /* 磨砂半透明全屏遮罩 */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(238, 238, 238, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: zoom-out;
+        }
+
+        /* 激活显示 */
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* 居中大图与柔和浮空投影 */
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            user-select: none;
+            cursor: zoom-out;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            transform: scale(0.96);
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lightbox-overlay.active .lightbox-image {
+            transform: scale(1);
+        }
+
+        /* 右上角极简微型圆圈关闭按钮 */
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 28px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #111111;
+            font-size: 18px;
+            line-height: 1;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+    </style>
+
 </head>
 
 
@@ -117,6 +201,16 @@
 
 
 </main>
+
+
+<!-- ==========================================
+     LIGHTBOX OVERLAY (磨砂呼吸灯箱)
+     ========================================== -->
+
+<div id="lightbox-overlay" class="lightbox-overlay" aria-hidden="true">
+    <div id="lightbox-close" class="lightbox-close" title="Close">✕</div>
+    <img id="lightbox-img" class="lightbox-image" src="" alt="Enlarged artwork">
+</div>
 
 
 
@@ -516,7 +610,7 @@ medium.textContent =
 
 
 /* ==========================================
-   PREVIOUS / NEXT (LINKS POINT TO CURRENT SCRIPT)
+   PREVIOUS / NEXT
    ========================================== */
 
 
@@ -548,11 +642,49 @@ document.title =
 
 
 /* ==========================================
+   LIGHTBOX INTERACTION (方案 3 交互逻辑)
+   ========================================== */
+
+
+const lightboxOverlay =
+    document.getElementById("lightbox-overlay");
+
+const lightboxImg =
+    document.getElementById("lightbox-img");
+
+const lightboxClose =
+    document.getElementById("lightbox-close");
+
+
+function openLightbox() {
+    lightboxImg.src = image.src;
+    lightboxImg.alt = image.alt;
+    lightboxOverlay.classList.add("active");
+}
+
+function closeLightbox() {
+    lightboxOverlay.classList.remove("active");
+}
+
+// 点击详情页图片放大
+image.addEventListener("click", openLightbox);
+
+// 点击关闭按钮或背景空白处关闭
+lightboxClose.addEventListener("click", closeLightbox);
+lightboxOverlay.addEventListener("click", function(event) {
+    if (event.target === lightboxOverlay || event.target === lightboxImg) {
+        closeLightbox();
+    }
+});
+
+
+
+/* ==========================================
    KEYBOARD CONTROL
 
    ← Previous
    → Next
-
+   Escape Close Lightbox
    ========================================== */
 
 
@@ -560,18 +692,28 @@ document.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "ArrowLeft") {
-
-            window.location.href =
-                "digital-collage-work.html?id=" + previousIndex;
-
+        // 如果灯箱处于打开状态，按 Esc 优先关闭灯箱
+        if (event.key === "Escape" && lightboxOverlay.classList.contains("active")) {
+            closeLightbox();
+            return;
         }
 
+        // 仅在灯箱未开启时响应左右切图
+        if (!lightboxOverlay.classList.contains("active")) {
 
-        if (event.key === "ArrowRight") {
+            if (event.key === "ArrowLeft") {
 
-            window.location.href =
-                "digital-collage-work.html?id=" + nextIndex;
+                window.location.href =
+                    "digital-collage-work.html?id=" + previousIndex;
+
+            }
+
+            if (event.key === "ArrowRight") {
+
+                window.location.href =
+                    "digital-collage-work.html?id=" + nextIndex;
+
+            }
 
         }
 
