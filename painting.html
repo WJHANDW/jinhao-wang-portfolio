@@ -529,19 +529,17 @@
 
                     /* Create work image */
 
-/* Create work image */
+                    const image =
+                        document.createElement("img");
 
-                 const image =
-                     document.createElement("img");
+                    const thumbName = work.image.replace(/\.[^/.]+$/, "") + ".jpg";
 
-                 const thumbName = work.image.replace(/\.[^/.]+$/, "") + ".jpg";
-
-                 image.src = encodeURI(
-                     "images/painting/" +
-                     work.year +
-                     "/thumbs/" +
-                     thumbName
-                 );
+                    image.src = encodeURI(
+                        "images/painting/" +
+                        work.year +
+                        "/thumbs/" +
+                        thumbName
+                    );
 
                     image.alt =
                         "Painting " + work.year;
@@ -608,6 +606,39 @@
 
             }
         );
+
+
+        /* ========================================
+           SMART HEADER HIDE / SHOW ON SCROLL
+           ======================================== */
+
+        const header = document.querySelector(".site-header");
+        let lastScrollY = window.pageYOffset;
+
+        window.addEventListener("scroll", () => {
+            const currentScrollY = window.pageYOffset;
+
+            // 顶部小范围内始终保持显示
+            if (currentScrollY <= 80) {
+                header.classList.remove("header-hidden");
+                lastScrollY = currentScrollY;
+                return;
+            }
+
+            // 过滤极微小的滚动扰动（防手抖阈值 10px）
+            if (Math.abs(currentScrollY - lastScrollY) < 10) {
+                return;
+            }
+
+            // 向下滚动则隐藏，向上滚动则呼出
+            if (currentScrollY > lastScrollY) {
+                header.classList.add("header-hidden");
+            } else {
+                header.classList.remove("header-hidden");
+            }
+
+            lastScrollY = currentScrollY;
+        }, { passive: true });
 
 
         /* ========================================
