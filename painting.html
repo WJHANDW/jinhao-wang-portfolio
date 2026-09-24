@@ -59,10 +59,10 @@
 
 
         <!-- ========================================
-             ARCHIVE
+             ARCHIVE (UNBROKEN MASONRY GRID)
              ======================================== -->
 
-        <div id="painting-archive"></div>
+        <div id="painting-archive" class="archive-grid"></div>
 
 
     </main>
@@ -412,164 +412,61 @@
 
 
         /* ========================================
-           GENERATE ARCHIVE
+           GENERATE ARCHIVE (NO YEAR HEADINGS)
            ======================================== */
 
         function renderArchive() {
 
-            /*
-             * Clear current archive before rebuilding.
-             */
-
             archive.innerHTML = "";
 
-
-            /*
-             * Create a sorted copy.
-             *
-             * The original works array is never changed,
-             * so each work keeps its original detail-page ID.
-             */
-
-            const sortedWorks = [...works].sort(
-                (a, b) => {
-
-                    const yearA =
-                        Number(a.year);
-
-                    const yearB =
-                        Number(b.year);
+            /* 带有原始索引的排序副本，确保跳转 ID 永远正确 */
+            const sortedWorks = works
+                .map((work, index) => ({
+                    ...work,
+                    originalIndex: index
+                }))
+                .sort((a, b) => {
+                    const yearA = Number(a.year);
+                    const yearB = Number(b.year);
 
                     return newestFirst
                         ? yearB - yearA
                         : yearA - yearB;
-
-                }
-            );
-
-
-            /*
-             * Get unique years in the
-             * current sorting order.
-             */
-
-            const years = [
-                ...new Set(
-                    sortedWorks.map(
-                        work => work.year
-                    )
-                )
-            ];
-
-
-            /*
-             * Generate each year section.
-             */
-
-            years.forEach(year => {
-
-                const yearWorks =
-                    sortedWorks.filter(
-                        work => work.year === year
-                    );
-
-
-                /* Create year section */
-
-                const yearSection =
-                    document.createElement("section");
-
-                yearSection.className =
-                    "archive-year";
-
-
-                /* Create year title */
-
-                const yearTitle =
-                    document.createElement("h2");
-
-                yearTitle.textContent =
-                    year;
-
-
-                /* Create image grid */
-
-                const grid =
-                    document.createElement("div");
-
-                grid.className =
-                    "archive-grid";
-
-
-                /* Add works */
-
-                yearWorks.forEach(work => {
-
-                    /*
-                     * Find the original index.
-                     * This keeps detail-page URLs stable.
-                     */
-
-                    const globalIndex =
-                        works.indexOf(work);
-
-
-                    /* Create work link */
-
-                    const link =
-                        document.createElement("a");
-
-                    link.href =
-                        "painting-work.html?id=" +
-                        globalIndex;
-
-                    link.className =
-                        "archive-item";
-
-
-                    /* Create work image */
-
-                    const image =
-                        document.createElement("img");
-
-                    const thumbName = work.image.replace(/\.[^/.]+$/, "") + ".jpg";
-
-                    image.src = encodeURI(
-                        "images/painting/" +
-                        work.year +
-                        "/thumbs/" +
-                        thumbName
-                    );
-
-                    image.alt =
-                        "Painting " + work.year;
-
-                    image.loading =
-                        "lazy";
-
-
-                    /* Assemble work */
-
-                    link.appendChild(image);
-
-                    grid.appendChild(link);
-
                 });
 
+            /* 直接生成每个作品卡片，汇入同一个瀑布流中 */
+            sortedWorks.forEach(work => {
 
-                /* Assemble year */
+                const link =
+                    document.createElement("a");
 
-                yearSection.appendChild(
-                    yearTitle
+                link.href =
+                    "painting-work.html?id=" +
+                    work.originalIndex;
+
+                link.className =
+                    "archive-item";
+
+                const image =
+                    document.createElement("img");
+
+                const thumbName = work.image.replace(/\.[^/.]+$/, "") + ".jpg";
+
+                image.src = encodeURI(
+                    "images/painting/" +
+                    work.year +
+                    "/thumbs/" +
+                    thumbName
                 );
 
-                yearSection.appendChild(
-                    grid
-                );
+                image.alt =
+                    "Painting " + work.year;
 
-                archive.appendChild(
-                    yearSection
-                );
+                image.loading =
+                    "lazy";
+
+                link.appendChild(image);
+                archive.appendChild(link);
 
             });
 
@@ -587,20 +484,10 @@
                 newestFirst =
                     !newestFirst;
 
-
-                /*
-                 * Update button label.
-                 */
-
                 sortButton.textContent =
                     newestFirst
                         ? "SORT: NEWEST → OLDEST"
                         : "SORT: OLDEST → NEWEST";
-
-
-                /*
-                 * Rebuild archive.
-                 */
 
                 renderArchive();
 
@@ -618,19 +505,16 @@
         window.addEventListener("scroll", () => {
             const currentScrollY = window.pageYOffset;
 
-            // 顶部小范围内始终保持显示
             if (currentScrollY <= 80) {
                 header.classList.remove("header-hidden");
                 lastScrollY = currentScrollY;
                 return;
             }
 
-            // 过滤极微小的滚动扰动（防手抖阈值 10px）
             if (Math.abs(currentScrollY - lastScrollY) < 10) {
                 return;
             }
 
-            // 向下滚动则隐藏，向上滚动则呼出
             if (currentScrollY > lastScrollY) {
                 header.classList.add("header-hidden");
             } else {
