@@ -34,11 +34,11 @@ a {
 
 
 /* =========================================================
-   SITE NAVIGATION
+   SITE NAVIGATION (SMART SLIDE HEADER)
    ========================================================= */
 
 .site-header {
-    position: absolute;
+    position: fixed;
 
     top: 0;
     left: 0;
@@ -48,6 +48,12 @@ a {
     padding: 28px 40px;
 
     z-index: 100;
+
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-header.header-hidden {
+    transform: translateY(-100%);
 }
 
 .site-header nav {
@@ -800,7 +806,7 @@ a {
 
     /* Navigation */
     .site-header {
-        position: relative;
+        position: fixed;
         padding: 20px;
     }
 
