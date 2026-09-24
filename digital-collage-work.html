@@ -125,10 +125,6 @@
 
 /* ==========================================
    WORK DATA
-
-   2026：id 0 - 23
-   2025：id 24 - 37
-
    ========================================== */
 
 
@@ -399,13 +395,6 @@ const works = [
     },
 
     {
-        image: "15.png",
-        title: "UNTITLED",
-        year: "2025",
-        medium: "Digital collage"
-    },
-
-    {
         image: "16.png",
         title: "UNTITLED",
         year: "2025",
@@ -527,7 +516,7 @@ medium.textContent =
 
 
 /* ==========================================
-   PREVIOUS / NEXT
+   PREVIOUS / NEXT (LINKS POINT TO CURRENT SCRIPT)
    ========================================== */
 
 
@@ -540,11 +529,11 @@ const nextIndex =
 
 
 prev.href =
-    "work.html?id=" + previousIndex;
+    "digital-collage-work.html?id=" + previousIndex;
 
 
 next.href =
-    "work.html?id=" + nextIndex;
+    "digital-collage-work.html?id=" + nextIndex;
 
 
 
@@ -574,7 +563,7 @@ document.addEventListener(
         if (event.key === "ArrowLeft") {
 
             window.location.href =
-                "work.html?id=" + previousIndex;
+                "digital-collage-work.html?id=" + previousIndex;
 
         }
 
@@ -582,7 +571,7 @@ document.addEventListener(
         if (event.key === "ArrowRight") {
 
             window.location.href =
-                "work.html?id=" + nextIndex;
+                "digital-collage-work.html?id=" + nextIndex;
 
         }
 
