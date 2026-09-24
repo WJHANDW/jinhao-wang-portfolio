@@ -12,6 +12,52 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
+    <style>
+        /* 真正的横向自然分布 3 列瀑布流网格 */
+        .true-masonry {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 28px;
+            width: 76%;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .masonry-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            min-width: 0;
+        }
+
+        .masonry-col .archive-item {
+            display: block;
+            margin: 0;
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .masonry-col .archive-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .masonry-col .archive-item:hover {
+            opacity: 0.75;
+        }
+
+        @media (max-width: 700px) {
+            .true-masonry {
+                width: 100%;
+                flex-direction: column;
+                gap: 50px;
+            }
+        }
+    </style>
+
 </head>
 
 
@@ -54,10 +100,10 @@
 
 
         <!-- ========================================
-             ARCHIVE (UNBROKEN MASONRY GRID)
+             ARCHIVE (TRUE MASONRY GRID)
              ======================================== -->
 
-        <div id="digital-collage-archive" class="archive-grid"></div>
+        <div id="digital-collage-archive" class="true-masonry"></div>
 
     </main>
 
@@ -153,14 +199,25 @@
 
 
         /* ========================================
-           RENDER WORKS (NO YEAR HEADINGS)
+           RENDER WORKS (横向蛇形推进)
            ======================================== */
 
         function renderWorks() {
 
             archive.innerHTML = "";
 
-            /* 带有原始索引的排序副本，保证跳往详情页时 ID 永不混乱 */
+            /* 电脑端创建 3 列容器，手机端 1 列 */
+            const isMobile = window.innerWidth <= 700;
+            const columnCount = isMobile ? 1 : 3;
+            const columns = [];
+
+            for (let i = 0; i < columnCount; i++) {
+                const col = document.createElement("div");
+                col.className = "masonry-col";
+                archive.appendChild(col);
+                columns.push(col);
+            }
+
             const sortedWorks = works
                 .map((work, index) => ({
                     ...work,
@@ -172,8 +229,8 @@
                         : a.year - b.year;
                 });
 
-            /* 全部作品汇入同一个完整的瀑布流容器中 */
-            sortedWorks.forEach(work => {
+            /* 从左到右依次分发：第1张给左列，第2张给中列，第3张给右列... */
+            sortedWorks.forEach((work, index) => {
 
                 const link =
                     document.createElement("a");
@@ -207,7 +264,10 @@
                 );
 
                 link.appendChild(image);
-                archive.appendChild(link);
+
+                /* 依次分配到各个列 */
+                const targetCol = columns[index % columnCount];
+                targetCol.appendChild(link);
 
             });
 
@@ -261,6 +321,17 @@
 
             lastScrollY = currentScrollY;
         }, { passive: true });
+
+
+        /* ========================================
+           窗口尺寸变化自适应
+           ======================================== */
+
+        let resizeTimer;
+        window.addEventListener("resize", () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(renderWorks, 150);
+        });
 
 
         /* ========================================
