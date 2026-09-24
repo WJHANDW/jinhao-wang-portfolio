@@ -53,7 +53,11 @@
         </div>
 
 
-        <div id="digital-collage-archive"></div>
+        <!-- ========================================
+             ARCHIVE (UNBROKEN MASONRY GRID)
+             ======================================== -->
+
+        <div id="digital-collage-archive" class="archive-grid"></div>
 
     </main>
 
@@ -149,97 +153,36 @@
 
 
         /* ========================================
-           RENDER WORKS
+           RENDER WORKS (NO YEAR HEADINGS)
            ======================================== */
 
         function renderWorks() {
 
             archive.innerHTML = "";
 
-
+            /* 带有原始索引的排序副本，保证跳往详情页时 ID 永不混乱 */
             const sortedWorks = works
                 .map((work, index) => ({
                     ...work,
                     originalIndex: index
                 }))
                 .sort((a, b) => {
-
                     return newestFirst
                         ? b.year - a.year
                         : a.year - b.year;
-
                 });
 
-
-            let currentYear = null;
-
-            let yearGrid = null;
-
-
+            /* 全部作品汇入同一个完整的瀑布流容器中 */
             sortedWorks.forEach(work => {
-
-
-                /* ==============================
-                   NEW YEAR
-                   ============================== */
-
-                if (work.year !== currentYear) {
-
-                    currentYear = work.year;
-
-
-                    /* YEAR HEADING */
-
-                    const yearTitle =
-                        document.createElement("h2");
-
-                    yearTitle.className =
-                        "digital-collage-year";
-
-                    yearTitle.textContent =
-                        currentYear;
-
-                    archive.appendChild(yearTitle);
-
-
-                    /* WORK GRID */
-
-                    yearGrid =
-                        document.createElement("div");
-
-                    yearGrid.className =
-                        "archive-grid";
-
-                    archive.appendChild(yearGrid);
-
-                }
-
-
-                /* ==============================
-                   WORK ITEM
-                   ============================== */
-
-                const item =
-                    document.createElement("div");
-
-                item.className =
-                    "archive-item";
-
-
-                /* ==============================
-                   WORK LINK
-                   ============================== */
 
                 const link =
                     document.createElement("a");
 
-               link.href =
-    `digital-collage-work.html?id=${work.originalIndex}`;
+                link.href =
+                    `digital-collage-work.html?id=${work.originalIndex}`;
 
-
-                /* ==============================
-                   WORK IMAGE
-                   ============================== */
+                link.className =
+                    "archive-item";
 
                 const image =
                     document.createElement("img");
@@ -253,33 +196,18 @@
                 image.loading =
                     "lazy";
 
-
-                /* ==============================
-                   ERROR HANDLING
-                   ============================== */
-
                 image.addEventListener(
                     "error",
                     () => {
-
                         console.log(
                             "图片加载失败：",
                             image.src
                         );
-
                     }
                 );
 
-
-                /* ==============================
-                   BUILD ITEM
-                   ============================== */
-
                 link.appendChild(image);
-
-                item.appendChild(link);
-
-                yearGrid.appendChild(item);
+                archive.appendChild(link);
 
             });
 
@@ -315,19 +243,16 @@
         window.addEventListener("scroll", () => {
             const currentScrollY = window.pageYOffset;
 
-            // 顶部小范围内始终保持显示
             if (currentScrollY <= 80) {
                 header.classList.remove("header-hidden");
                 lastScrollY = currentScrollY;
                 return;
             }
 
-            // 过滤极微小的滚动扰动（防手抖阈值 10px）
             if (Math.abs(currentScrollY - lastScrollY) < 10) {
                 return;
             }
 
-            // 向下滚动则隐藏，向上滚动则呼出
             if (currentScrollY > lastScrollY) {
                 header.classList.add("header-hidden");
             } else {
