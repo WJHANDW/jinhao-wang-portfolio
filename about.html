@@ -46,6 +46,8 @@
             color: #999999;
             cursor: pointer;
             user-select: none;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
 
             padding-bottom: 3px;
 
@@ -56,22 +58,33 @@
                 border-color 0.2s ease;
         }
 
-        .language-switch label:hover {
-            color: #111111;
+        /* 仅在支持鼠标悬停的电脑端启用 hover，手机触屏端绝不触发 */
+        @media (hover: hover) {
+            .language-switch label:hover {
+                color: #111111;
+                text-decoration: none;
+            }
+        }
+
+        /* 消除输入控件点击聚焦导致的系统下划线与轮廓 */
+        .language-switch input:focus + label,
+        .language-switch label:focus {
+            outline: none;
+            text-decoration: none;
         }
 
         /* English selected */
-
         #language-en:checked + label[for="language-en"] {
             color: #111111;
             border-bottom-color: #111111;
+            text-decoration: none;
         }
 
         /* Chinese selected */
-
         #language-zh:checked + label[for="language-zh"] {
             color: #111111;
             border-bottom-color: #111111;
+            text-decoration: none;
         }
 
 
