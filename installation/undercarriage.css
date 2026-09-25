@@ -1,6 +1,6 @@
 /* =========================================================
    INSTALLATION: KINETIC GRAPHIC DEALER
-   正常等大实体卡牌 / 平稳机械出牌动线
+   正常等大实体卡牌 / 1.3倍速发牌动线
    ========================================================= */
 
 .installation-section {
@@ -49,8 +49,8 @@
     justify-content: flex-end;
     padding-bottom: 7px;
     box-sizing: border-box;
-    /* 转向转动速度：稳妥、优雅，看得清旋转 */
-    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    /* 1.3倍速旋转平滑度：0.27s */
+    transition: transform 0.27s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* 顶部压盖线 */
@@ -76,7 +76,7 @@
     z-index: 2;
 }
 
-/* 吐牌时的微弱机械下压回弹 */
+/* 吐牌瞬时回弹反馈 */
 .dealer-dispenser-box.ejecting {
     transform: rotateX(25deg) translateY(2px) !important;
 }
@@ -102,7 +102,7 @@
     max-width: 860px;
 }
 
-/* 预置好的固定空间卡槽（尺寸完全等于卡牌，严禁任何移位） */
+/* 预置空间卡槽 */
 .card-slot-anchor {
     width: 52px;
     height: 62px;
@@ -111,10 +111,7 @@
     flex-shrink: 0;
 }
 
-/* 
-   单张卡牌：
-   纯正 52×62px 实体尺寸，从发牌口出仓到终点完全不缩放！
-*/
+/* 单张卡牌实体 */
 .dealer-card {
     position: absolute;
     top: 0;
@@ -138,21 +135,21 @@
 }
 
 /* 
-   核心物理飞行动画：
-   时长设定为 0.65 秒，匀减速滑行，观者能够清晰追踪卡牌飞掠路径
+   核心物理飞行动画（1.3倍速调整）：
+   由 0.65s 压缩为 0.5s，依然匀减速滑翔，更加干脆利落
 */
 .dealer-card.in-flight {
     transition: 
-        transform 0.65s cubic-bezier(0.18, 0.85, 0.32, 1),
-        opacity 0.2s ease,
-        box-shadow 0.65s ease;
+        transform 0.5s cubic-bezier(0.18, 0.85, 0.32, 1),
+        opacity 0.16s ease,
+        box-shadow 0.5s ease;
 }
 
-/* 读毕整齐下沉淡出 */
+/* 读毕快速下沉淡出（0.3s） */
 .dealer-card.card-fadeout {
-    transform: translateY(22px) scale(0.95) !important;
+    transform: translateY(18px) scale(0.95) !important;
     opacity: 0 !important;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 @media (max-width: 700px) {
