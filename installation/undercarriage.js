@@ -1,17 +1,14 @@
 /* =========================================================
    INSTALLATION: KINETIC GRAPHIC DEALER
-   真实不规则物理落位 + 随机倾角微扰 + 2倍高速出牌时序
+   整席汇聚回收 (方案2 / 0.8x) + 恒定自然散乱废牌堆 (±7.2° / 8px)
    ========================================================= */
 
 (function () {
     const rawEssays = [
-        // --- 原始随笔系列 ---
         "我觉得自己像一条蛆虫，蠕动着，在日趋腐烂的尸体中游荡",
         "有时候觉得自己是蜱虫，只是以吸食别人的血活着",
         "有时我则觉得自己像一只狂吠的犬，再叫就要被关起来",
         "然而首先我是一个野鬼，游荡在雾林里不知归处",
-
-        // --- 记忆与梦境切片 ---
         "在生活进入长时间平淡快乐时，我常害怕一场迅疾的暴雨摧毁一切",
         "像小时候夜晚山边的天忽然亮起，不知是打雷要下雨，还是有人放烟花",
         "今早做了一个切合现实的梦，回想时发现它确实曾发生过，最后一次发生时我真的走了",
@@ -21,8 +18,6 @@
         "我摩挲着它弓着的身子，它变温顺了，跟我玩了起来，它一定是饿坏了",
         "它下楼找流浪猫玩被听到，我爸说：这是什么猫？声调低沉有力，像卡夫卡《审判》里的父亲",
         "即使垂垂老矣将死之时也足以审判儿子。我在楼梯往下喊：不让养我就出去住！",
-
-        // --- 新增随笔切片 ---
         "压抑的氛围，空气中悬浮着许多细小的絮，不敢过分呼吸",
         "在审查严格的条件下，我要把握作品的尺度。我们想要说话，我们要发明自己的语言",
         "只接受一种道理的人只有一种逻辑，别人的看法都是低等的，存在就是对他的挑战",
@@ -58,9 +53,34 @@
 
     const dispenserBox = document.getElementById("dealer-slot");
     const gridEl = document.getElementById("cards-grid");
+    const discardPileEl = document.getElementById("discard-free-pile");
 
-    if (!dispenserBox || !gridEl) return;
+    if (!dispenserBox || !gridEl || !discardPileEl) return;
 
+    // --- 1. 初始化自然散乱常驻废牌堆 (恒定 12 张，高度固定) ---
+    const initialChars = ["审", "判", "犬", "雾", "鬼", "痕", "雨", "絮", "语", "尺", "度", "脉"];
+    const baseStackSlots = [];
+
+    // 生成常驻散乱底牌（极散漫乱度：±7.2°, 8px 随机位移）
+    for (let i = 0; i < 12; i++) {
+        const sheet = document.createElement("div");
+        sheet.className = "discarded-sheet";
+        sheet.textContent = initialChars[i];
+
+        const rot = (Math.random() - 0.5) * 14.4; // ±7.2°
+        const jx = (Math.random() - 0.5) * 16;   // ±8px
+        const jy = (Math.random() - 0.5) * 16;
+        
+        // 极微厚度递增（最多累积 3px，高度恒定）
+        const liftY = -(i * 0.25);
+
+        sheet.style.transform = `translate3d(${jx}px, ${jy + liftY}px, 0) rotateZ(${rot}deg)`;
+        sheet.style.zIndex = (i + 1).toString();
+        discardPileEl.appendChild(sheet);
+        baseStackSlots.push({ rot, jx, jy, liftY });
+    }
+
+    // --- 2. 发牌与整席汇聚回收循环 ---
     function dealNextEssay() {
         if (isDealing) return;
         isDealing = true;
@@ -68,7 +88,7 @@
         gridEl.innerHTML = "";
         const chars = essays[currentEssayIdx];
 
-        // 1. 批量预建卡槽
+        // 批量创建卡槽并挂载
         const fragment = document.createDocumentFragment();
         const anchors = [];
         chars.forEach(() => {
@@ -79,10 +99,14 @@
         });
         gridEl.appendChild(fragment);
 
-        // 2. 一次性批量缓存中心坐标
+        // 一次性缓存全局坐标
         const slotRect = dispenserBox.getBoundingClientRect();
         const slotCenterX = slotRect.left + slotRect.width / 2;
         const slotCenterY = slotRect.top + slotRect.height * 0.72;
+
+        const pileRect = discardPileEl.getBoundingClientRect();
+        const pileCenterX = pileRect.left + pileRect.width / 2;
+        const pileCenterY = pileRect.top + pileRect.height / 2;
 
         const anchorCoords = anchors.map(anchor => {
             const r = anchor.getBoundingClientRect();
@@ -98,16 +122,9 @@
             if (index >= chars.length) {
                 dispenserBox.style.transform = `rotateX(22deg) rotateZ(0deg)`;
 
-                // 发完全部牌后停留 0.5s
+                // 发完全部牌，定格 0.5s 后执行【方案 2：整席悬浮汇聚回收 (0.8x)】
                 setTimeout(() => {
-                    for (let i = 0; i < cardElements.length; i++) {
-                        cardElements[i].classList.add("card-fadeout");
-                    }
-                    setTimeout(() => {
-                        currentEssayIdx = getRandomEssayIndex(currentEssayIdx);
-                        isDealing = false;
-                        dealNextEssay();
-                    }, 150);
+                    executeCollectiveFlockRecall();
                 }, 500);
                 return;
             }
@@ -116,14 +133,11 @@
             const targetAnchor = anchors[index];
             const coords = anchorCoords[index];
 
-            // 1. 生成物理散落扰动参数：
-            // - 倾斜角度：-5.5° 到 +5.5°
-            // - 平面位移微偏：X轴 ±6px, Y轴 ±7px
+            // 桌面散落微扰
             const rotDeg = (Math.random() - 0.5) * 11;
             const jitterX = (Math.random() - 0.5) * 12;
             const jitterY = (Math.random() - 0.5) * 14;
 
-            // 2. 创建实体卡牌并设置随机层级（后发的牌自然覆盖在先发的牌之上）
             const card = document.createElement("div");
             card.className = "dealer-card";
             card.textContent = char;
@@ -131,21 +145,19 @@
             targetAnchor.appendChild(card);
             cardElements.push(card);
 
-            // 3. 计算相对发牌口的矢量
             const deltaX = slotCenterX - (coords.x + jitterX);
             const deltaY = slotCenterY - (coords.y + jitterY);
 
-            // 4. 发牌机转向瞄准
             const angleRad = Math.atan2((coords.x + jitterX) - slotCenterX, (coords.y + jitterY) - slotCenterY);
             let aimDeg = (angleRad * (180 / Math.PI)) * 0.72;
             aimDeg = Math.max(-26, Math.min(26, aimDeg));
             dispenserBox.style.transform = `rotateX(22deg) rotateZ(${-aimDeg}deg)`;
 
-            // 5. 初始状态：卡在出牌槽口
+            // 出牌口初始
             card.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) rotateZ(${-aimDeg}deg)`;
             card.style.opacity = "0.7";
 
-            // 6. 出仓射出并落定位点（包含不规则角度与偏移）
+            // 瞬间射出
             setTimeout(() => {
                 dispenserBox.classList.add("ejecting");
                 setTimeout(() => dispenserBox.classList.remove("ejecting"), 50);
@@ -157,15 +169,59 @@
                 });
             }, 25);
 
-            // 7. 出牌步进
+            // 步进间隔 (2倍速)
             const interval = (char === "，" || char === "。") ? 250 : 220;
             setTimeout(() => {
                 dealCardStep(index + 1);
             }, interval);
         }
 
+        // --- 方案 2：整席悬浮汇聚回收核心执行器 ---
+        function executeCollectiveFlockRecall() {
+            // 全场卡片同时微浮起并飞向废牌堆
+            cardElements.forEach((card, idx) => {
+                const anchorCoord = anchorCoords[idx];
+                
+                // 计算飞往废牌堆顶部的位移向量
+                const targetPileX = pileCenterX - anchorCoord.x;
+                const targetPileY = pileCenterY - anchorCoord.y;
+
+                // 散落到废牌堆顶的随机偏角 (±7.2° / 8px)
+                const pileRot = (Math.random() - 0.5) * 14.4;
+                const pileJx = (Math.random() - 0.5) * 16;
+                const pileJy = (Math.random() - 0.5) * 16;
+
+                // 恒定高度：无论回收多少张，高度始终控制在微小起伏区间内，绝不递增
+                const fixedLift = -((idx % 8) * 0.35);
+
+                card.classList.remove("in-flight");
+                card.classList.add("in-recall");
+
+                // 极微交错延迟 (5ms)，保持同时起飞的汇聚感
+                setTimeout(() => {
+                    card.style.transform = `translate3d(${targetPileX + pileJx}px, ${targetPileY + pileJy + fixedLift}px, 0) rotateZ(${pileRot}deg)`;
+                    card.style.zIndex = (50 + idx).toString();
+                }, idx * 5);
+            });
+
+            // 飞行时长 0.45s (对应 0.8x 动量速率) + 0.1s 缓冲落定
+            setTimeout(() => {
+                // 将本次回收的卡片悄然更新入废牌堆顶部的几张展示牌，保持视觉恒定
+                const topSheets = discardPileEl.querySelectorAll(".discarded-sheet");
+                const replaceCount = Math.min(cardElements.length, topSheets.length);
+                for (let k = 0; k < replaceCount; k++) {
+                    topSheets[topSheets.length - 1 - k].textContent = cardElements[cardElements.length - 1 - k].textContent;
+                }
+
+                // 清空牌桌临时卡牌，无缝开启下一轮随机发牌
+                currentEssayIdx = getRandomEssayIndex(currentEssayIdx);
+                isDealing = false;
+                dealNextEssay();
+            }, 560);
+        }
+
         dealCardStep(0);
     }
 
-    setTimeout(dealNextEssay, 150);
+    setTimeout(dealNextEssay, 200);
 })();
