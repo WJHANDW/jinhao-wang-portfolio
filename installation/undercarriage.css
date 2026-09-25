@@ -1,0 +1,143 @@
+/* =========================================================
+   INSTALLATION: UNDERCARRIAGE / 沥青下潜装置独立样式
+   ========================================================= */
+
+.installation-section {
+    width: 100%;
+    min-height: 100vh;
+    background: #111111;
+    color: #f2f2f2;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 90px 6vw 40px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.installation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    z-index: 10;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 16px;
+}
+
+.installation-title {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin: 0;
+    font-family: monospace, sans-serif;
+}
+
+.installation-controls {
+    display: flex;
+    gap: 20px;
+}
+
+.inst-btn {
+    background: none;
+    border: none;
+    color: #f2f2f2;
+    font-family: monospace, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 0;
+    transition: opacity 0.2s ease;
+}
+
+.inst-btn:hover {
+    opacity: 1;
+}
+
+.viewport-wrapper {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+    min-height: 480px;
+}
+
+#undercarriage-canvas {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: 480px;
+    background: #161616;
+    border-radius: 2px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+.installation-log {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+.log-label {
+    font-size: 11px;
+    font-family: monospace, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.4;
+    margin-bottom: 8px;
+}
+
+.log-content {
+    font-size: 14px;
+    line-height: 1.8;
+    letter-spacing: 0.03em;
+    min-height: 2.8em;
+    color: #777777;
+    font-family: Arial, sans-serif;
+    transition: color 0.3s ease;
+}
+
+.log-content span.accumulated {
+    color: #f2f2f2;
+}
+
+/* 首页下滑引导细标 */
+.scroll-down-hint {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    opacity: 0.35;
+    font-family: monospace, sans-serif;
+    animation: pulse-hint 2s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes pulse-hint {
+    0%, 100% { opacity: 0.2; transform: translate(-50%, 0); }
+    50% { opacity: 0.6; transform: translate(-50%, 5px); }
+}
+
+@media (max-width: 700px) {
+    .installation-section {
+        padding: 70px 20px 30px;
+        min-height: auto;
+    }
+    #undercarriage-canvas {
+        height: 380px;
+    }
+    .viewport-wrapper {
+        min-height: 380px;
+    }
+    .log-content {
+        font-size: 13px;
+    }
+}
