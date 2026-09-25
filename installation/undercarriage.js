@@ -1,6 +1,6 @@
 /* =========================================================
-   INSTALLATION: KINETIC GRAPHIC DEALER (ZERO-JANK HIGH-FPS)
-   坐标预批处理 + 纯 GPU 硬件加速合成
+   INSTALLATION: KINETIC GRAPHIC DEALER
+   1.4倍加速敏捷出牌 + 0.5s 文段极速周转时序 (零卡顿版本)
    ========================================================= */
 
 (function () {
@@ -28,7 +28,7 @@
         gridEl.innerHTML = "";
         const chars = essays[currentEssayIdx];
 
-        // 1. 批量创建卡槽并挂载
+        // 1. 批量预建绝对定位卡槽，防止页面重排抖动
         const fragment = document.createDocumentFragment();
         const anchors = [];
         chars.forEach(() => {
@@ -39,8 +39,7 @@
         });
         gridEl.appendChild(fragment);
 
-        // 2. 【核心优化】：在此处一次性批读全部坐标并缓存！
-        // 后续出牌过程中，绝不再触发任何 getBoundingClientRect()，根除重排卡顿！
+        // 2. 一次性批量读取坐标，出牌过程零重排读取开销
         const slotRect = dispenserBox.getBoundingClientRect();
         const slotCenterX = slotRect.left + slotRect.width / 2;
         const slotCenterY = slotRect.top + slotRect.height * 0.72;
@@ -59,7 +58,7 @@
             if (index >= chars.length) {
                 dispenserBox.style.transform = `rotateX(22deg) rotateZ(0deg)`;
 
-                // 文段停留 0.5s，快速收牌换下一轮
+                // 发完全部牌，严格停留 0.5s，随后快速收牌启动下一篇
                 setTimeout(() => {
                     for (let i = 0; i < cardElements.length; i++) {
                         cardElements[i].classList.add("card-fadeout");
@@ -68,7 +67,7 @@
                         currentEssayIdx = (currentEssayIdx + 1) % essays.length;
                         isDealing = false;
                         dealNextEssay();
-                    }, 300);
+                    }, 250);
                 }, 500);
                 return;
             }
@@ -77,14 +76,14 @@
             const targetAnchor = anchors[index];
             const coords = anchorCoords[index];
 
-            // 1. 创建卡牌
+            // 1. 创建实体卡牌
             const card = document.createElement("div");
             card.className = "dealer-card";
             card.textContent = char;
             targetAnchor.appendChild(card);
             cardElements.push(card);
 
-            // 2. 从预存数据中直接计算，零开销
+            // 2. 纯内存读取相对坐标
             const deltaX = slotCenterX - coords.x;
             const deltaY = slotCenterY - coords.y;
 
@@ -93,37 +92,37 @@
             let aimDeg = (angleRad * (180 / Math.PI)) * 0.72;
             aimDeg = Math.max(-26, Math.min(26, aimDeg));
 
-            // 发牌机转向（采用 translate3d 走 GPU 合成）
+            // 发牌机快速转向（GPU 硬件加速合成）
             dispenserBox.style.transform = `rotateX(22deg) rotateZ(${-aimDeg}deg)`;
 
-            // 4. 初始状态：卡在槽口
+            // 4. 初始状态：卡在出牌槽口
             card.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) rotateZ(${-aimDeg}deg)`;
             card.style.opacity = "0.7";
 
-            // 5. 机械推射微震与平滑滑出
+            // 5. 吐牌出仓（缩短至 55ms，更紧凑利落）
             setTimeout(() => {
                 dispenserBox.classList.add("ejecting");
-                setTimeout(() => dispenserBox.classList.remove("ejecting"), 100);
+                setTimeout(() => dispenserBox.classList.remove("ejecting"), 80);
 
-                // 强制下一帧由 GPU 硬件合成执行飞行动画
+                // 触发 0.36s 飞行滑翔
                 requestAnimationFrame(() => {
                     card.classList.add("in-flight");
                     const naturalAngle = (Math.random() - 0.5) * 2;
                     card.style.transform = `translate3d(0, 0, 0) rotateZ(${naturalAngle}deg)`;
                     card.style.opacity = "1";
                 });
-            }, 80);
+            }, 55);
 
-            // 6. 发牌步进
-            const interval = (char === "，" || char === "。") ? 700 : 615;
+            // 6. 出牌步进节奏（1.4倍再提速：单字 440ms，标点 500ms）
+            const interval = (char === "，" || char === "。") ? 500 : 440;
             setTimeout(() => {
                 dealCardStep(index + 1);
             }, interval);
         }
 
-        // 启动第一张
+        // 首发启动
         dealCardStep(0);
     }
 
-    setTimeout(dealNextEssay, 350);
+    setTimeout(dealNextEssay, 260);
 })();
