@@ -1,5 +1,6 @@
 /* =========================================================
-   INSTALLATION: GRAPHIC CARD DEALER (极简图形发牌器样式)
+   INSTALLATION: MINIMALIST GRAPHIC CARD DEALER
+   低反差克制展厅色调 / 真实发牌物理空间
    ========================================================= */
 
 .installation-section {
@@ -11,118 +12,116 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 90px 6vw 80px;
+    padding: 100px 6vw 90px;
     box-sizing: border-box;
     position: relative;
 }
 
-/* 顶部极简发牌箱（依照手绘稿线条建模） */
+/* 顶部发牌箱：微反差、低饱和度极细线条 */
 .dealer-dispenser-box {
     position: relative;
-    width: 90px;
-    height: 70px;
-    border: 2px solid #111111;
-    background: #f2f2f2;
-    margin-bottom: 50px;
+    width: 82px;
+    height: 58px;
+    border: 1px solid rgba(17, 17, 17, 0.28);
+    background: #eaeaea;
+    margin-bottom: 55px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 2px 3px 0px rgba(17, 17, 17, 0.15);
-    transition: transform 0.1s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 20;
 }
 
-/* 发牌槽口（线条窄缝） */
+/* 发牌槽口：深灰哑光缝隙，非生硬死黑 */
 .dealer-slot {
-    width: 66px;
-    height: 12px;
-    border: 1.5px solid #111111;
-    background: #111111;
+    width: 58px;
+    height: 8px;
+    background: #333333;
     border-radius: 1px;
 }
 
-/* 发牌时的微震触感 */
+/* 吐牌瞬时微震 */
 .dealer-dispenser-box.slot-eject {
     transform: translateY(-2px);
 }
 
-/* 下方卡牌阵列区（手绘稿中的两排网格排布） */
+/* 下方承接牌面的网格区域 */
 .dealer-table {
     width: 100%;
-    max-width: 920px;
-    min-height: 280px;
+    max-width: 900px;
+    min-height: 320px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    position: relative;
 }
 
 .cards-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 16px 14px;
+    gap: 14px 12px;
     width: 100%;
-    max-width: 860px;
+    max-width: 840px;
 }
 
-/* 单张卡片：纯净方块、黑细边框、居中单字 */
+/* 
+   单张卡牌：
+   1. 柔白纸质感 (#fafafa)，不刺眼
+   2. 0.8px 极细灰线边框，融入背景
+   3. 柔和环境光衰减投影，去除硬黑投影
+*/
 .dealer-card {
-    width: 58px;
-    height: 68px;
-    border: 1.5px solid #111111;
-    background: #ffffff;
+    width: 52px;
+    height: 62px;
+    border: 1px solid rgba(17, 17, 17, 0.18);
+    background: #fafafa;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    font-weight: 500;
-    color: #111111;
-    box-shadow: 2px 2px 0px rgba(17, 17, 17, 0.12);
+    font-size: 18px;
+    font-weight: 400;
+    color: #222222;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
     box-sizing: border-box;
     user-select: none;
     will-change: transform, opacity;
 }
 
-/* 动态过渡 */
+/* 发牌飞行动态：自发牌口平滑滑出、稳妥落位 */
 .dealer-card.card-dealt {
-    transition: transform 0.38s cubic-bezier(0.18, 0.89, 0.32, 1.15), opacity 0.25s ease;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
-/* 标点符号格轻度透气 */
-.dealer-card.card-punct {
-    background: transparent;
-    border-color: rgba(17, 17, 17, 0.3);
-    font-size: 16px;
-}
-
-/* 读完收牌向下淡出 */
+/* 整段阅读完毕后的柔和渐隐下沉 */
 .dealer-card.card-fadeout {
-    transform: translateY(24px) scale(0.9) !important;
+    transform: translateY(18px) scale(0.96) !important;
     opacity: 0 !important;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transition: transform 0.45s ease, opacity 0.45s ease;
 }
 
-/* 手机端响应式 */
+/* 移动端屏幕自适应收缩 */
 @media (max-width: 700px) {
     .installation-section {
-        padding: 80px 20px 60px;
+        padding: 85px 16px 60px;
     }
     .dealer-dispenser-box {
-        width: 76px;
-        height: 60px;
-        margin-bottom: 35px;
+        width: 70px;
+        height: 50px;
+        margin-bottom: 40px;
     }
     .dealer-slot {
-        width: 54px;
-        height: 10px;
+        width: 48px;
+        height: 7px;
     }
     .cards-grid {
-        gap: 10px 8px;
+        gap: 8px 6px;
     }
     .dealer-card {
-        width: 44px;
-        height: 52px;
-        font-size: 16px;
-        border-width: 1.2px;
+        width: 40px;
+        height: 48px;
+        font-size: 15px;
     }
 }
