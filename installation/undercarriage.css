@@ -1,6 +1,6 @@
 /* =========================================================
-   INSTALLATION: MINIMALIST GRAPHIC CARD DEALER
-   低反差克制展厅色调 / 真实发牌物理空间
+   INSTALLATION: KINETIC GRAPHIC DEALER
+   立体现当代发牌机 / 固定坐标卡槽 / 景深出牌遮罩
    ========================================================= */
 
 .installation-section {
@@ -12,50 +12,95 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 100px 6vw 90px;
+    padding: 90px 6vw 90px;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
 }
 
-/* 顶部发牌箱：微反差、低饱和度极细线条 */
+/* 
+   立体极简发牌机系统 (Dealer Machine)
+   采用微 3D 透视底座与可旋转的出牌射击仓
+*/
+.dealer-chassis-stage {
+    perspective: 800px;
+    width: 120px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    z-index: 30;
+}
+
 .dealer-dispenser-box {
     position: relative;
-    width: 82px;
-    height: 58px;
-    border: 1px solid rgba(17, 17, 17, 0.28);
-    background: #eaeaea;
-    margin-bottom: 55px;
+    width: 88px;
+    height: 64px;
+    background: #e6e6e6;
+    border: 1px solid rgba(17, 17, 17, 0.25);
+    border-radius: 4px;
+    /* 微透视工业倾角立体感 */
+    transform-style: preserve-3d;
+    transform: rotateX(24deg) rotateZ(0deg);
+    box-shadow: 
+        0 1px 0 #cccccc,
+        0 3px 0 #bcbcbc,
+        0 10px 24px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
-    transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
-    z-index: 20;
+    justify-content: flex-end;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+    /* 动态旋转角度平滑跟随 */
+    transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.1);
 }
 
-/* 发牌槽口：深灰哑光缝隙，非生硬死黑 */
+/* 顶部装弹匣盖板 */
+.dealer-dispenser-box::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    width: 60px;
+    height: 12px;
+    background: #d8d8d8;
+    border: 1px solid rgba(17, 17, 17, 0.15);
+    border-radius: 2px;
+}
+
+/* 发牌槽口：深凹腔体，构建出牌遮罩视效 */
 .dealer-slot {
-    width: 58px;
-    height: 8px;
-    background: #333333;
-    border-radius: 1px;
+    position: relative;
+    width: 62px;
+    height: 9px;
+    background: #1c1c1c;
+    border-radius: 2px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+    z-index: 2;
 }
 
-/* 吐牌瞬时微震 */
-.dealer-dispenser-box.slot-eject {
-    transform: translateY(-2px);
+/* 吐牌瞬时回弹反馈 */
+.dealer-dispenser-box.ejecting {
+    box-shadow: 
+        0 1px 0 #cccccc,
+        0 2px 0 #bcbcbc,
+        0 6px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* 下方承接牌面的网格区域 */
+/* 
+   牌桌网格与固定槽位 (Anchor Grid System)
+   彻底杜绝由于新增卡牌引发的旧牌往左位移
+*/
 .dealer-table {
     width: 100%;
     max-width: 900px;
-    min-height: 320px;
+    min-height: 280px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     position: relative;
+    z-index: 10;
 }
 
 .cards-grid {
@@ -64,19 +109,29 @@
     justify-content: center;
     gap: 14px 12px;
     width: 100%;
-    max-width: 840px;
+    max-width: 860px;
+}
+
+/* 预先分配好的固定绝对物理卡槽 */
+.card-slot-anchor {
+    width: 52px;
+    height: 62px;
+    position: relative;
+    box-sizing: border-box;
+    /* 保持原位占位不变 */
+    flex-shrink: 0;
 }
 
 /* 
-   单张卡牌：
-   1. 柔白纸质感 (#fafafa)，不刺眼
-   2. 0.8px 极细灰线边框，融入背景
-   3. 柔和环境光衰减投影，去除硬黑投影
+   实体落位卡牌
 */
 .dealer-card {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 52px;
     height: 62px;
-    border: 1px solid rgba(17, 17, 17, 0.18);
+    border: 1px solid rgba(17, 17, 17, 0.2);
     background: #fafafa;
     display: flex;
     align-items: center;
@@ -84,41 +139,50 @@
     font-size: 18px;
     font-weight: 400;
     color: #222222;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
     box-sizing: border-box;
     user-select: none;
+    pointer-events: none;
+    z-index: 15;
     will-change: transform, opacity;
 }
 
-/* 发牌飞行动态：自发牌口平滑滑出、稳妥落位 */
-.dealer-card.card-dealt {
-    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+/* 出牌发射飞行动画：从发牌口冲出并平滑刹车落位 */
+.dealer-card.in-flight {
+    transition: 
+        transform 0.44s cubic-bezier(0.12, 0.9, 0.28, 1.05),
+        opacity 0.24s ease,
+        box-shadow 0.44s ease;
 }
 
-/* 整段阅读完毕后的柔和渐隐下沉 */
+/* 阅毕离场柔和下潜淡出 */
 .dealer-card.card-fadeout {
-    transform: translateY(18px) scale(0.96) !important;
+    transform: translateY(22px) scale(0.92) !important;
     opacity: 0 !important;
     transition: transform 0.45s ease, opacity 0.45s ease;
 }
 
-/* 移动端屏幕自适应收缩 */
+/* 移动端尺度微调 */
 @media (max-width: 700px) {
     .installation-section {
         padding: 85px 16px 60px;
     }
+    .dealer-chassis-stage {
+        height: 75px;
+        margin-bottom: 35px;
+    }
     .dealer-dispenser-box {
-        width: 70px;
-        height: 50px;
-        margin-bottom: 40px;
+        width: 76px;
+        height: 56px;
     }
     .dealer-slot {
-        width: 48px;
-        height: 7px;
+        width: 52px;
+        height: 8px;
     }
     .cards-grid {
         gap: 8px 6px;
     }
+    .card-slot-anchor,
     .dealer-card {
         width: 40px;
         height: 48px;
