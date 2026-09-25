@@ -1,68 +1,128 @@
 /* =========================================================
-   INSTALLATION: UNDERCARRIAGE / 极简浅灰正视低机位装置样式
+   INSTALLATION: GRAPHIC CARD DEALER (极简图形发牌器样式)
    ========================================================= */
 
 .installation-section {
     width: 100%;
     min-height: 100vh;
-    /* 彻底采用网站统一的浅灰底色 */
     background: #f2f2f2;
     color: #111111;
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 100px 6vw 80px;
+    justify-content: flex-start;
+    padding: 90px 6vw 80px;
     box-sizing: border-box;
-    overflow: hidden;
-}
-
-.installation-header {
-    width: 100%;
-    max-width: 960px;
-    margin-bottom: 24px;
-    text-align: left;
-}
-
-.installation-title {
-    font-size: 13px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 400;
-    opacity: 0.45;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* 视觉主视窗 */
-.viewport-wrapper {
     position: relative;
+}
+
+/* 顶部极简发牌箱（依照手绘稿线条建模） */
+.dealer-dispenser-box {
+    position: relative;
+    width: 90px;
+    height: 70px;
+    border: 2px solid #111111;
+    background: #f2f2f2;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 3px 0px rgba(17, 17, 17, 0.15);
+    transition: transform 0.1s ease;
+}
+
+/* 发牌槽口（线条窄缝） */
+.dealer-slot {
+    width: 66px;
+    height: 12px;
+    border: 1.5px solid #111111;
+    background: #111111;
+    border-radius: 1px;
+}
+
+/* 发牌时的微震触感 */
+.dealer-dispenser-box.slot-eject {
+    transform: translateY(-2px);
+}
+
+/* 下方卡牌阵列区（手绘稿中的两排网格排布） */
+.dealer-table {
     width: 100%;
-    max-width: 960px;
-    height: 540px;
+    max-width: 920px;
+    min-height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 14px;
+    width: 100%;
+    max-width: 860px;
+}
+
+/* 单张卡片：纯净方块、黑细边框、居中单字 */
+.dealer-card {
+    width: 58px;
+    height: 68px;
+    border: 1.5px solid #111111;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 20px;
+    font-weight: 500;
+    color: #111111;
+    box-shadow: 2px 2px 0px rgba(17, 17, 17, 0.12);
+    box-sizing: border-box;
+    user-select: none;
+    will-change: transform, opacity;
 }
 
-#undercarriage-canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #ebebeb;
-    border-radius: 0;
-    /* 细腻内凹画框阴影 */
-    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.03);
+/* 动态过渡 */
+.dealer-card.card-dealt {
+    transition: transform 0.38s cubic-bezier(0.18, 0.89, 0.32, 1.15), opacity 0.25s ease;
 }
 
-/* 移动端自适应 */
+/* 标点符号格轻度透气 */
+.dealer-card.card-punct {
+    background: transparent;
+    border-color: rgba(17, 17, 17, 0.3);
+    font-size: 16px;
+}
+
+/* 读完收牌向下淡出 */
+.dealer-card.card-fadeout {
+    transform: translateY(24px) scale(0.9) !important;
+    opacity: 0 !important;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* 手机端响应式 */
 @media (max-width: 700px) {
     .installation-section {
-        padding: 90px 20px 60px;
-        min-height: auto;
+        padding: 80px 20px 60px;
     }
-    .viewport-wrapper {
-        height: 380px;
+    .dealer-dispenser-box {
+        width: 76px;
+        height: 60px;
+        margin-bottom: 35px;
+    }
+    .dealer-slot {
+        width: 54px;
+        height: 10px;
+    }
+    .cards-grid {
+        gap: 10px 8px;
+    }
+    .dealer-card {
+        width: 44px;
+        height: 52px;
+        font-size: 16px;
+        border-width: 1.2px;
     }
 }
