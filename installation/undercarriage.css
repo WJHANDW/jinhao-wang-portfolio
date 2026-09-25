@@ -1,6 +1,6 @@
 /* =========================================================
    INSTALLATION: KINETIC GRAPHIC DEALER
-   正常等大实体卡牌 / 2倍速超高速连发系统
+   喜茶稚拙手写骨架 / 石墨铅笔颗粒感 / 2倍速超高速连发
    ========================================================= */
 
 .installation-section {
@@ -49,11 +49,9 @@
     justify-content: flex-end;
     padding-bottom: 7px;
     box-sizing: border-box;
-    /* 2倍提速极速转动：0.1s */
     transition: transform 0.1s cubic-bezier(0.2, 0.9, 0.3, 1.1);
 }
 
-/* 顶部压盖线 */
 .dealer-dispenser-box::before {
     content: "";
     position: absolute;
@@ -65,7 +63,6 @@
     border-radius: 2px;
 }
 
-/* 发牌槽口：深凹窄缝 */
 .dealer-slot {
     position: relative;
     width: 66px;
@@ -76,12 +73,10 @@
     z-index: 2;
 }
 
-/* 吐牌瞬时微震 */
 .dealer-dispenser-box.ejecting {
     transform: rotateX(25deg) translateY(2px) !important;
 }
 
-/* 牌桌网格与预设卡槽 */
 .dealer-table {
     width: 100%;
     max-width: 920px;
@@ -102,7 +97,6 @@
     max-width: 860px;
 }
 
-/* 预置空间卡槽 */
 .card-slot-anchor {
     width: 52px;
     height: 62px;
@@ -111,22 +105,43 @@
     flex-shrink: 0;
 }
 
-/* 单张卡牌实体 */
+/* 
+   单张卡牌实体：
+   1. 喜茶风稚拙字体骨架 ('ZCOOL KuaiLe', 'Yuanti SC', '幼圆')
+   2. 不那么黑的深灰石墨色 (#464442)
+   3. 铅笔摩擦纸面的碳粉微颗粒毛边 (Graphite Dust Halation)
+*/
 .dealer-card {
     position: absolute;
     top: 0;
     left: 0;
     width: 52px;
     height: 62px;
-    border: 1px solid rgba(17, 17, 17, 0.2);
+    border: 1px solid rgba(17, 17, 17, 0.18);
     background: #fafafa;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+
+    /* --- 核心：喜茶稚拙骨架体系 --- */
+    font-family: "ZCOOL KuaiLe", "Yuanti SC", "STYuanti", "YouYuan", "Hiragino Sans GB", sans-serif;
+    font-size: 22px;
     font-weight: 400;
-    color: #222222;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
+    letter-spacing: -0.02em;
+
+    /* --- 核心：非死黑的真实石墨深灰色 --- */
+    color: #464442;
+
+    /* --- 核心：石墨在纸纤维上的颗粒感与毛糙边缘扩散 --- */
+    text-shadow: 
+        0 0 0.7px rgba(60, 58, 56, 0.65),
+        0.4px 0.4px 0.5px rgba(25, 25, 25, 0.22);
+
+    /* 纸张微透明渗透感 */
+    opacity: 0.94;
+    -webkit-font-smoothing: antialiased;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
     box-sizing: border-box;
     user-select: none;
     pointer-events: none;
@@ -134,10 +149,7 @@
     will-change: transform, opacity;
 }
 
-/* 
-   核心物理飞行动画（2倍速）：
-   由 0.36s 压缩为 0.18s，高速射入指定槽位
-*/
+/* 飞行动画 (2倍速) */
 .dealer-card.in-flight {
     transition: 
         transform 0.18s cubic-bezier(0.12, 0.9, 0.28, 1.05),
@@ -145,7 +157,7 @@
         box-shadow 0.18s ease;
 }
 
-/* 读毕极速下沉淡出（0.15s） */
+/* 阅毕下潜淡出 */
 .dealer-card.card-fadeout {
     transform: translateY(18px) scale(0.95) !important;
     opacity: 0 !important;
@@ -175,6 +187,6 @@
     .dealer-card {
         width: 40px;
         height: 48px;
-        font-size: 15px;
+        font-size: 17px;
     }
 }
