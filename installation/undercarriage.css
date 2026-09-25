@@ -1,6 +1,6 @@
 /* =========================================================
    INSTALLATION: KINETIC GRAPHIC DEALER
-   方案 C：解密档案旧铅字 / 2H 极淡浅灰 / 4.0px 粗粝炭棒颗粒
+   整席汇聚回收 (0.8x) / 无框自然散乱废牌堆 / 方案 C 铅印石墨质感
    ========================================================= */
 
 .installation-section {
@@ -12,10 +12,21 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 95px 6vw 90px;
+    padding: 85px 6vw 90px;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+}
+
+/* 顶部水平集群：发牌机 + 废牌堆 */
+.dealer-top-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 55px;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 30;
 }
 
 /* 立体发牌机舞台 */
@@ -26,8 +37,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 55px;
-    z-index: 30;
 }
 
 .dealer-dispenser-box {
@@ -77,6 +86,18 @@
     transform: rotateX(25deg) translateY(2px) !important;
 }
 
+/* 
+   无框自然散乱废牌堆定位基点：
+   完全没有边框和盒子约束，直接裸露在桌面上
+*/
+.discard-free-pile {
+    position: relative;
+    width: 52px;
+    height: 62px;
+    pointer-events: none;
+}
+
+/* 牌桌网格与预设卡槽 */
 .dealer-table {
     width: 100%;
     max-width: 920px;
@@ -107,9 +128,7 @@
 
 /* 
    单张卡牌实体：
-   1. 字体：方案 C 解密档案旧铅字（Noto Serif SC）
-   2. 色彩：2H 极淡浅灰（#6c6b69）
-   3. 滤镜：4.0px 粗粝炭棒微观纸质咬合
+   方案 C：Noto Serif SC + 2H 极淡浅灰 + 4.0px 炭粒
 */
 .dealer-card {
     position: absolute;
@@ -132,21 +151,21 @@
     /* 2H 极淡浅灰 */
     color: #6c6b69;
 
-    /* 挂载 4.0px 粗粝炭棒滤镜 */
+    /* 挂载 4.0px 粗粝炭棒石墨滤镜 */
     filter: url(#pencil-texture);
 
     opacity: 0.90;
     -webkit-font-smoothing: antialiased;
 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
     box-sizing: border-box;
     user-select: none;
     pointer-events: none;
     z-index: 15;
-    will-change: transform, opacity;
+    will-change: transform, opacity, box-shadow;
 }
 
-/* 飞行动画 (2倍速) */
+/* 飞行动画 (2倍速快速发牌) */
 .dealer-card.in-flight {
     transition: 
         transform 0.18s cubic-bezier(0.12, 0.9, 0.28, 1.05),
@@ -154,20 +173,52 @@
         box-shadow 0.18s ease;
 }
 
-/* 阅毕下潜淡出 */
-.dealer-card.card-fadeout {
-    transform: translateY(18px) scale(0.95) !important;
-    opacity: 0 !important;
-    transition: transform 0.15s ease, opacity 0.15s ease;
+/* 
+   方案 2：整席汇聚回收动画 (0.8x 飞行速率，约 0.45s)
+   带浮起和高速归入废牌堆动线
+*/
+.dealer-card.in-recall {
+    transition: 
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s ease,
+        opacity 0.45s ease !important;
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.12), 0 3px 8px rgba(0, 0, 0, 0.06) !important;
+    z-index: 60 !important;
+}
+
+/* 废牌堆里常驻及落定的散乱牌 */
+.discarded-sheet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 52px;
+    height: 62px;
+    border: 1px solid rgba(17, 17, 17, 0.15);
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Noto Serif SC", serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #6c6b69;
+    filter: url(#pencil-texture);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+    pointer-events: none;
+    user-select: none;
 }
 
 @media (max-width: 700px) {
     .installation-section {
-        padding: 85px 16px 60px;
+        padding: 75px 16px 60px;
+    }
+    .dealer-top-cluster {
+        gap: 30px;
+        margin-bottom: 35px;
     }
     .dealer-chassis-stage {
         height: 75px;
-        margin-bottom: 40px;
     }
     .dealer-dispenser-box {
         width: 78px;
@@ -181,7 +232,9 @@
         gap: 8px 6px;
     }
     .card-slot-anchor,
-    .dealer-card {
+    .dealer-card,
+    .discard-free-pile,
+    .discarded-sheet {
         width: 40px;
         height: 48px;
         font-size: 17px;
