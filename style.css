@@ -11,13 +11,11 @@ body {
     margin: 0;
     width: 100%;
     min-height: 100%;
-
     background: #f2f2f2;
 }
 
 body {
     color: #111111;
-
     font-family:
         Arial,
         Helvetica,
@@ -34,29 +32,16 @@ a {
 
 
 /* =========================================================
-   SITE NAVIGATION (SMART SLIDE HEADER)
-   ========================================================= */
-
-/* =========================================================
    SITE NAVIGATION (SMART SLIDE HEADER WITH GRADIENT FADE)
-   ========================================================= */
-
-/* =========================================================
-   SITE NAVIGATION (SMART SLIDE HEADER — TOP-TO-BOTTOM FADE)
    ========================================================= */
 
 .site-header {
     position: fixed;
-
     top: 0;
     left: 0;
-
     width: 100%;
-
     padding: 28px 40px 48px;
-
     z-index: 100;
-
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
     /* 全通栏从上至下平滑羽化渐变 */
@@ -79,27 +64,13 @@ a {
 .site-header nav {
     display: flex;
     gap: 28px;
-
-    /* 保持文字链接可点击 */
+    /* 恢复文字链接正常点击 */
     pointer-events: auto;
 }
 
-.site-header.header-hidden {
-    transform: translateY(-100%);
-}
-
-.site-header nav {
-    display: flex;
-    gap: 28px;
-
-    /* 恢复文字链接的正常点击 */
-    pointer-events: auto;
-}
 .site-header a {
     color: #111111;
-
     text-decoration: none;
-
     font-size: 14px;
     letter-spacing: 0.05em;
 }
@@ -121,35 +92,26 @@ a {
 .hero {
     width: 100%;
     height: 100vh;
-
     display: grid;
-
     grid-template-columns: 60% 40%;
-
     align-items: center;
-
     padding: 80px 40px 40px;
 }
 
 .hero-image {
     width: 100%;
     height: calc(100vh - 120px);
-
     display: flex;
-
     align-items: center;
     justify-content: center;
 }
 
 .hero-image img {
     display: block;
-
     max-width: 100%;
     max-height: 100%;
-
     width: auto;
     height: auto;
-
     object-fit: contain;
 }
 
@@ -160,7 +122,6 @@ a {
 
 .hero-text h1 {
     margin: 0 0 30px;
-
     font-size: 42px;
     font-weight: 500;
     line-height: 1.1;
@@ -168,12 +129,9 @@ a {
 
 .hero-text p {
     margin: 0;
-
     max-width: 480px;
-
     font-size: 14px;
     line-height: 1.6;
-
     opacity: 0.75;
 }
 
@@ -185,13 +143,11 @@ a {
 .works-archive {
     width: 100%;
     min-height: 100vh;
-
     padding: 120px 6vw;
 }
 
 .works-archive h1 {
     margin: 0 0 100px;
-
     font-size: 28px;
     font-weight: 400;
 }
@@ -203,23 +159,15 @@ a {
 
 .project-link {
     display: flex;
-
     justify-content: space-between;
     align-items: center;
-
     width: 100%;
-
     padding: 28px 0;
-
     border-top: 1px solid rgba(17, 17, 17, 0.25);
-
     color: #111111;
-
     text-decoration: none;
-
     font-size: 18px;
     font-weight: 400;
-
     transition: opacity 0.2s ease;
 }
 
@@ -237,58 +185,38 @@ a {
 
 
 /* =========================================================
-   PROJECT ARCHIVE PAGES
-   DIGITAL COLLAGE + PAINTING
+   PROJECT ARCHIVE PAGES (PAINTING & DIGITAL COLLAGE)
    ========================================================= */
 
 .project-page {
     width: 100%;
-
     padding: 105px 6vw 140px;
 }
 
-
-/* =========================================================
-   PROJECT HEADER
-   ========================================================= */
-
 .project-header {
     display: flex;
-
     justify-content: space-between;
     align-items: baseline;
-
     margin-bottom: 105px;
 }
 
 .project-header h1 {
     margin: 0;
-
     font-size: 28px;
     font-weight: 400;
     line-height: 1.2;
 }
 
-
-/* =========================================================
-   SORT BUTTON
-   ========================================================= */
-
 #sort-button {
     margin: 0;
     padding: 0;
-
     border: none;
     background: none;
-
     font-family: inherit;
     font-size: 14px;
     font-weight: 400;
-
     line-height: 1.4;
-
     color: #111111;
-
     cursor: pointer;
     white-space: nowrap;
 }
@@ -299,111 +227,46 @@ a {
 
 
 /* =========================================================
-   YEAR HEADINGS
+   TRUE MASONRY GRID (横向蛇形咬合推进系统)
    ========================================================= */
 
-/* Digital Collage */
-.digital-collage-year {
-    margin: 0 0 55px 0;
-
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.4;
-
-    letter-spacing: 0;
+.true-masonry {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 28px;
+    width: 76%;
+    max-width: 1120px;
+    margin: 0 auto;
 }
 
-
-/* Painting */
-#painting-archive .archive-year {
-    margin: 0 0 55px 0;
-
-    font-size: 14px;
-    font-weight: 400;
-
-    line-height: 1.4;
-
-    letter-spacing: 0;
+.masonry-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    min-width: 0;
 }
 
-#painting-archive .archive-year h2 {
+.masonry-col .archive-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
-
-    font-size: 14px;
-    font-weight: 400;
-
-    line-height: 1.4;
-
-    letter-spacing: 0;
-}
-
-
-/* =========================================================
-   DIGITAL COLLAGE (MASONRY)
-   ========================================================= */
-
-.project-grid {
-    columns: 3;
-    column-gap: 28px;
-    width: 76%;
-    max-width: 1120px;
-    margin: 0 auto;
-}
-
-.project-grid .work-item {
-    display: block;
-    break-inside: avoid;
-    margin-bottom: 80px;
     text-decoration: none;
     transition: opacity 0.25s ease;
 }
 
-.project-grid .work-item img {
+.masonry-col .archive-item img {
     display: block;
-    width: 100%;
+    max-width: 100%;
+    width: auto;
     height: auto;
+    max-height: 520px;     /* 封顶高度：竖长画作在此止步，宽度按原比例等比收窄 */
+    object-fit: contain;
 }
 
-.project-grid .work-item:hover {
-    opacity: 0.75;
-}
-
-
-/* =========================================================
-   PAINTING (MASONRY)
-   ========================================================= */
-
-#painting-archive {
-    width: 100%;
-}
-
-#painting-archive .archive-year {
-    margin-bottom: 140px;
-}
-
-.archive-grid {
-    columns: 3;
-    column-gap: 28px;
-    width: 76%;
-    max-width: 1120px;
-    margin: 0 auto;
-}
-
-.archive-item {
-    display: block;
-    break-inside: avoid;
-    margin-bottom: 80px;
-    text-decoration: none;
-    transition: opacity 0.25s ease;
-}
-
-.archive-item img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.archive-item:hover {
+.masonry-col .archive-item:hover {
     opacity: 0.75;
 }
 
@@ -415,25 +278,18 @@ a {
 .work-detail-page {
     width: 100%;
     height: 100vh;
-
     overflow: hidden;
-
     background: #f2f2f2;
     color: #111111;
 }
 
 .work-detail {
     position: relative;
-
     width: 100%;
     height: 100vh;
-
     display: grid;
-
     grid-template-columns: 42% 58%;
-
     align-items: center;
-
     padding: 80px 7vw 40px;
 }
 
@@ -443,16 +299,13 @@ a {
 
 .work-info h1 {
     margin: 0 0 35px;
-
     font-size: 20px;
     font-weight: 500;
-
     letter-spacing: 0.08em;
 }
 
 .work-info p {
     margin: 0 0 10px;
-
     font-size: 15px;
     line-height: 1.5;
 }
@@ -460,58 +313,36 @@ a {
 .work-detail-image {
     width: 100%;
     height: calc(100vh - 120px);
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     padding: 20px 40px 20px 0;
 }
 
 .work-detail-image img {
     display: block;
-
     max-width: 100%;
     max-height: calc(100vh - 170px);
-
     width: auto;
     height: auto;
-
     object-fit: contain;
 }
 
-
-/* =========================================================
-   WORK DETAIL ARROWS
-   ========================================================= */
-
 .work-arrow {
     position: fixed;
-
     top: 50%;
-
     transform: translateY(-50%);
-
     z-index: 200;
-
     width: 50px;
     height: 80px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     color: #111111;
-
     text-decoration: none;
-
     font-size: 30px;
     font-weight: 300;
-
     opacity: 0.45;
-
     transition: opacity 0.2s ease;
 }
 
@@ -527,6 +358,23 @@ a {
     right: 18px;
 }
 
+.work-back {
+    position: fixed;
+    left: 50px;
+    bottom: 32px;
+    z-index: 20;
+    color: #111111;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    transition: opacity 0.2s ease;
+}
+
+.work-back:hover {
+    opacity: 0.5;
+}
+
 
 /* =========================================================
    PAINTING DETAIL
@@ -535,103 +383,71 @@ a {
 .painting-detail-page {
     width: 100%;
     height: 100vh;
-
     overflow: hidden;
-
     background: #f2f2f2;
     color: #111111;
 }
 
 .painting-detail {
     position: relative;
-
     width: 100%;
     height: 100vh;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     padding: 105px 8vw 35px;
 }
 
 .painting-info {
     width: 100%;
-
     margin-bottom: 20px;
 }
 
 .painting-info h1 {
     margin: 0 0 12px;
-
     font-size: 18px;
     font-weight: 400;
 }
 
 .painting-info p {
     margin: 3px 0;
-
     font-size: 14px;
     line-height: 1.45;
 }
 
 .painting-detail-image {
     flex: 1;
-
     width: 100%;
     min-height: 0;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
 }
 
 .painting-detail-image img {
     display: block;
-
     max-width: 80vw;
     max-height: calc(100vh - 270px);
-
     width: auto;
     height: auto;
-
     object-fit: contain;
 }
 
-
-/* =========================================================
-   PAINTING DETAIL ARROWS
-   ========================================================= */
-
 .painting-arrow {
     position: fixed;
-
     top: 50%;
-
     transform: translateY(-50%);
-
     z-index: 200;
-
     width: 60px;
     height: 80px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     color: #111111;
-
     text-decoration: none;
-
     font-size: 28px;
     font-weight: 300;
-
     opacity: 0.8;
-
     transition:
         opacity 0.2s ease,
         transform 0.2s ease;
@@ -659,16 +475,11 @@ a {
 
 .painting-back {
     position: fixed;
-
     left: 3vw;
     bottom: 28px;
-
     z-index: 200;
-
     font-size: 13px;
-
     color: #111111;
-
     text-decoration: none;
 }
 
@@ -689,53 +500,42 @@ a {
 .about-content {
     width: 100%;
     min-height: 100vh;
-
     display: grid;
-
     grid-template-columns: 40% 60%;
-
     padding: 120px 6vw 100px;
 }
 
 .about-photo {
     display: flex;
-
     align-items: flex-start;
     justify-content: flex-start;
-
     padding-top: 20px;
     padding-right: 5vw;
 }
 
 .about-photo img {
     display: block;
-
     width: 100%;
     max-width: 420px;
     height: auto;
-
     object-fit: contain;
 }
 
 .about-info {
     width: 100%;
     max-width: 680px;
-
     padding-top: 20px;
 }
 
 .about-top {
     display: flex;
-
     justify-content: space-between;
     align-items: baseline;
-
     margin-bottom: 70px;
 }
 
 .about-top h1 {
     margin: 0;
-
     font-size: 28px;
     font-weight: 400;
     line-height: 1.2;
@@ -747,19 +547,15 @@ a {
 
 .about-section h2 {
     margin: 0 0 24px;
-
     font-size: 14px;
     font-weight: 400;
-
     letter-spacing: 0.12em;
     text-transform: uppercase;
 }
 
 .about-section p {
     max-width: 620px;
-
     margin: 0 0 18px;
-
     font-size: 16px;
     line-height: 1.8;
     font-weight: 400;
@@ -767,7 +563,6 @@ a {
 
 .about-section a {
     color: inherit;
-
     text-decoration: none;
 }
 
@@ -775,18 +570,10 @@ a {
     text-decoration: underline;
 }
 
-
-/* =========================================================
-   LANGUAGE SWITCH
-   ========================================================= */
-
 .language-switch {
     display: flex;
-
     align-items: center;
-
     gap: 6px;
-
     font-size: 12px;
 }
 
@@ -799,35 +586,6 @@ a {
 }
 
 .language-switch span {
-    opacity: 0.5;
-}
-
-
-/* =========================================================
-   RETURN TO WORK CATEGORY
-   ========================================================= */
-
-.work-back {
-    position: fixed;
-
-    left: 50px;
-    bottom: 32px;
-
-    z-index: 20;
-
-    color: #111111;
-
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 400;
-
-    line-height: 1.4;
-
-    transition: opacity 0.2s ease;
-}
-
-.work-back:hover {
     opacity: 0.5;
 }
 
@@ -848,7 +606,7 @@ a {
         gap: 18px;
     }
 
-/* Home */
+    /* Home */
     .home {
         height: auto;
     }
@@ -856,7 +614,7 @@ a {
     .hero {
         height: auto;
         display: block;
-        padding: 90px 20px 40px; /* 顶部 90px 让出导航空间，左右 20px，底部 40px */
+        padding: 90px 20px 40px;
     }
 
     .hero-image {
@@ -915,54 +673,23 @@ a {
         font-size: 13px;
     }
 
-    /* Digital Collage Mobile */
-    .project-year {
-        margin-bottom: 80px;
-    }
-
-    .project-year h2 {
-        margin-bottom: 35px;
-        font-size: 14px;
-        font-weight: 400;
-    }
-
-    .project-grid {
-        columns: 1;
-        column-gap: 0;
+    /* True Masonry Mobile (单列瀑布流) */
+    .true-masonry {
         width: 100%;
+        flex-direction: column;
+        gap: 50px;
     }
 
-    .project-grid .work-item {
-        margin-bottom: 50px;
-    }
-
-    .project-grid .work-item img {
+    .masonry-col {
         width: 100%;
+        gap: 50px;
     }
 
-    /* Painting Mobile */
-    .archive-year {
-        margin-bottom: 80px;
-    }
-
-    .archive-year h2 {
-        margin-bottom: 35px;
-        font-size: 14px;
-        font-weight: 400;
-    }
-
-    .archive-grid {
-        columns: 1;
-        column-gap: 0;
+    .masonry-col .archive-item img {
         width: 100%;
-    }
-
-    .archive-item {
-        margin-bottom: 50px;
-    }
-
-    .archive-item img {
-        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        height: auto;
     }
 
     /* Digital collage detail Mobile */
