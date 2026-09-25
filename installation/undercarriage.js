@@ -1,6 +1,6 @@
 /* =========================================================
    INSTALLATION: KINETIC GRAPHIC DEALER
-   2倍超高速连发 + 0.5s 文段定格周转时序
+   真随机文段抽取 + 2倍超高速连发 + 0.5s 文段定格周转时序
    ========================================================= */
 
 (function () {
@@ -11,11 +11,11 @@
         "有时我则觉得自己像一只狂吠的犬，再叫就要被关起来",
         "然而首先我是一个野鬼，游荡在雾林里不知归处",
 
-        // --- 随笔 1：平淡快乐与暴雨闪光（自然拆为 2 组） ---
+        // --- 随笔 1：平淡快乐与暴雨闪光 ---
         "在生活进入长时间平淡快乐时，我常害怕一场迅疾的暴雨摧毁一切",
         "像小时候夜晚山边的天忽然亮起，不知是打雷要下雨，还是有人放烟花",
 
-        // --- 随笔 2：梦境、橘猫与审判（自然拆为 7 组） ---
+        // --- 随笔 2：梦境、橘猫与审判 ---
         "今早做了一个切合现实的梦，回想时发现它确实曾发生过，最后一次发生时我真的走了",
         "梦里回家，在院子杂物堆捡到一只橘猫，后来发现它的爪子跟婴儿拳头一般大",
         "带回家两三天它一直不吃也不让摸，很凶，我没衣物保护的地方随时都会被挠",
@@ -27,7 +27,17 @@
 
     const essays = rawEssays.map(s => s.split(""));
 
-    let currentEssayIdx = 0;
+    // 核心改进：真随机选段（并且确保下一次不和当前重复）
+    function getRandomEssayIndex(excludeIdx) {
+        if (essays.length <= 1) return 0;
+        let nextIdx;
+        do {
+            nextIdx = Math.floor(Math.random() * essays.length);
+        } while (nextIdx === excludeIdx);
+        return nextIdx;
+    }
+
+    let currentEssayIdx = getRandomEssayIndex(-1); // 初次加载时随机挑选一段
     let isDealing = false;
 
     const dispenserBox = document.getElementById("dealer-slot");
@@ -77,9 +87,9 @@
                     for (let i = 0; i < cardElements.length; i++) {
                         cardElements[i].classList.add("card-fadeout");
                     }
-                    // 0.15s 淡出后即刻无缝启动下一篇
+                    // 0.15s 淡出后即刻随机挑选下一篇启动
                     setTimeout(() => {
-                        currentEssayIdx = (currentEssayIdx + 1) % essays.length;
+                        currentEssayIdx = getRandomEssayIndex(currentEssayIdx);
                         isDealing = false;
                         dealNextEssay();
                     }, 150);
