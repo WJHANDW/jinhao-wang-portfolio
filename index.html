@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=9">
     <link rel="stylesheet" href="installation/undercarriage.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
@@ -23,9 +23,7 @@
 
 <body>
 
-    <!-- 
-       方案 C 定制：4.0px 粗粝炭棒石墨滤镜
-    -->
+    <!-- 方案 C 定制：4.0px 粗粝炭棒石墨滤镜 -->
     <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
         <filter id="pencil-texture">
             <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" result="noise" />
@@ -85,14 +83,19 @@
 
     <section class="installation-section">
 
-        <!-- 立体发牌机底座与旋转仓 -->
-        <div class="dealer-chassis-stage">
-            <div id="dealer-slot" class="dealer-dispenser-box">
-                <div class="dealer-slot"></div>
+        <!-- 顶部装置区：发牌机 + 右侧无框自然散乱废牌堆 -->
+        <div class="dealer-top-cluster">
+            <div class="dealer-chassis-stage">
+                <div id="dealer-slot" class="dealer-dispenser-box">
+                    <div class="dealer-slot"></div>
+                </div>
             </div>
+
+            <!-- 无框自由散乱废牌堆 -->
+            <div id="discard-free-pile" class="discard-free-pile"></div>
         </div>
 
-        <!-- 固定卡槽阵列牌桌 -->
+        <!-- 牌桌网格 -->
         <div class="dealer-table">
             <div id="cards-grid" class="cards-grid"></div>
         </div>
@@ -131,7 +134,7 @@
         }, { passive: true });
     </script>
 
-    <!-- 极简发牌逻辑 -->
+    <!-- 极简发牌与整席汇聚回收逻辑 -->
     <script src="installation/undercarriage.js"></script>
 
 </body>
