@@ -1,6 +1,6 @@
 /* =========================================================
-   INSTALLATION: GRAPHIC CARD DEALER
-   严格串行逐张出牌 / 统一排版节奏
+   INSTALLATION: KINETIC GRAPHIC DEALER
+   发牌器瞄准转向 + 固定卡槽绝对物理飞行时序
    ========================================================= */
 
 (function () {
@@ -16,10 +16,10 @@
     let currentEssayIdx = 0;
     let isDealing = false;
 
-    const slotEl = document.getElementById("dealer-slot");
+    const dispenserBox = document.getElementById("dealer-slot");
     const gridEl = document.getElementById("cards-grid");
 
-    if (!slotEl || !gridEl) return;
+    if (!dispenserBox || !gridEl) return;
 
     function dealNextEssay() {
         if (isDealing) return;
@@ -27,74 +27,99 @@
 
         gridEl.innerHTML = "";
         const chars = essays[currentEssayIdx];
+
+        // 核心解法1：发牌前预先建立完整阵列插槽（Anchors），锁定每个字的未来坐标
+        // 这彻底消除了“发一张牌、旧牌被推向左边”的版面跳跃！
+        const anchors = [];
+        chars.forEach(() => {
+            const anchor = document.createElement("div");
+            anchor.className = "card-slot-anchor";
+            gridEl.appendChild(anchor);
+            anchors.push(anchor);
+        });
+
         const cardElements = [];
 
-        // 递归式严格逐张发牌：发完一张，再从发牌口推出下一张
         function dealCardStep(index) {
             if (index >= chars.length) {
-                // 当前段落全部牌发完，停顿 3.6 秒供阅读，随后柔和淡出换下一段
+                // 回正发牌箱角度
+                dispenserBox.style.transform = `rotateX(24deg) rotateZ(0deg)`;
+
+                // 读毕停顿 3.6 秒，全牌收纳下沉
                 setTimeout(() => {
                     cardElements.forEach(c => c.classList.add("card-fadeout"));
                     setTimeout(() => {
                         currentEssayIdx = (currentEssayIdx + 1) % essays.length;
                         isDealing = false;
                         dealNextEssay();
-                    }, 550);
+                    }, 500);
                 }, 3600);
                 return;
             }
 
             const char = chars[index];
+            const targetAnchor = anchors[index];
 
-            // 1. 在网格末端追加实际 DOM 卡片
+            // 1. 创建真正有字实体牌
             const card = document.createElement("div");
             card.className = "dealer-card";
-            card.textContent = char; // 标点符号与文字完全统一，不做任何特异化处理
-            gridEl.appendChild(card);
+            card.textContent = char;
+            targetAnchor.appendChild(card);
             cardElements.push(card);
 
-            // 2. 测量发牌口与此卡最终落位点之间的空间矢量差
-            const slotRect = slotEl.getBoundingClientRect();
+            // 2. 测量当前目标卡槽与发牌机槽口的相对矢量
+            const slotRect = dispenserBox.getBoundingClientRect();
             const slotCenterX = slotRect.left + slotRect.width / 2;
-            const slotCenterY = slotRect.top + slotRect.height / 2;
+            const slotCenterY = slotRect.top + slotRect.height * 0.75; // 出牌口高度
 
-            const cardRect = card.getBoundingClientRect();
-            const targetCenterX = cardRect.left + cardRect.width / 2;
-            const targetCenterY = cardRect.top + cardRect.height / 2;
+            const anchorRect = targetAnchor.getBoundingClientRect();
+            const targetCenterX = anchorRect.left + anchorRect.width / 2;
+            const targetCenterY = anchorRect.top + anchorRect.height / 2;
 
             const deltaX = slotCenterX - targetCenterX;
             const deltaY = slotCenterY - targetCenterY;
 
-            // 3. 将新牌瞬间置于发牌口内（微小缩放、不可见）
-            card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.6)`;
-            card.style.opacity = "0";
+            // 核心解法2：计算瞄准方位角（Aiming Angle）
+            // 目标越偏左，角度越负；目标越偏右，角度越正（范围限制在 ±28° 之间）
+            const angleRad = Math.atan2(targetCenterX - slotCenterX, targetCenterY - slotCenterY);
+            let aimDeg = (angleRad * (180 / Math.PI)) * 0.75;
+            aimDeg = Math.max(-28, Math.min(28, aimDeg));
 
-            // 4. 发牌口微震动作
-            slotEl.classList.add("slot-eject");
-            setTimeout(() => slotEl.classList.remove("slot-eject"), 100);
+            // 发牌箱机体转向瞄准出牌目标！
+            dispenserBox.style.transform = `rotateX(24deg) rotateZ(${-aimDeg}deg)`;
 
-            // 5. 触发物理滑行动画飞向指定点
+            // 核心解法3：构筑“从发牌槽内探出并射出”的物理景深
+            // 牌刚诞生时：处于发牌槽深处，极小、扁平、带有俯仰透视
+            card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.28, 0.45) rotateX(45deg) rotateZ(${-aimDeg}deg)`;
+            card.style.opacity = "0.2";
+            card.style.boxShadow = "none";
+
+            // 机构吐牌微震反馈
+            dispenserBox.classList.add("ejecting");
+            setTimeout(() => dispenserBox.classList.remove("ejecting"), 90);
+
+            // 双重重绘帧：触发从出牌口向外高速滑行展开
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    card.classList.add("card-dealt");
-                    // 极细微的自然手绘角度偏差 (-1.2° ~ +1.2°)
-                    const subtleRot = (Math.random() - 0.5) * 2.4;
-                    card.style.transform = `translate(0, 0) scale(1) rotate(${subtleRot}deg)`;
+                    card.classList.add("in-flight");
+                    // 飞出后落定位点，附带极其微妙的自然手绘偏差 (-1.2° ~ +1.2°)
+                    const naturalAngle = (Math.random() - 0.5) * 2.4;
+                    card.style.transform = `translate(0, 0) scale(1) rotateX(0deg) rotateZ(${naturalAngle}deg)`;
                     card.style.opacity = "1";
+                    card.style.boxShadow = "0 2px 7px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)";
                 });
             });
 
-            // 6. 等待当前这张牌飞行落定后（约 190ms），再发下一张牌
-            const interval = (char === "，" || char === "。") ? 260 : 190;
+            // 标点符号与汉字的发牌节奏微调
+            const cadence = (char === "，" || char === "。") ? 270 : 190;
             setTimeout(() => {
                 dealCardStep(index + 1);
-            }, interval);
+            }, cadence);
         }
 
-        // 启动第一张牌发放
+        // 首发前发牌箱先瞄向第一张牌的位置
         dealCardStep(0);
     }
 
-    // 页面就绪后稍作停顿开始首轮发牌
-    setTimeout(dealNextEssay, 400);
+    setTimeout(dealNextEssay, 450);
 })();
