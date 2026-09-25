@@ -9,7 +9,9 @@
 
     <title>Jinhao Wang</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
+    <!-- 引入独立文件夹内的装置样式 -->
+    <link rel="stylesheet" href="installation/undercarriage.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 </head>
@@ -34,50 +36,96 @@
 
 
     <!-- ========================================
-         HOME PAGE
+         HOME PAGE (HERO)
          ======================================== -->
 
     <main class="home">
 
-
-        <!-- ====================================
-             HERO
-             ==================================== -->
-
         <section class="hero">
 
-
             <!-- Hero Image -->
-
-<div class="hero-image">
-
+            <div class="hero-image">
                 <img
                     src="images/digital collage/home-hero-small.jpg"
                     alt="Jinhao Wang"
                 >
-
             </div>
 
-
             <!-- Hero Text -->
-
             <div class="hero-text">
-
-                <h1>
-                    Jinhao Wang
-                </h1>
-
+                <h1>Jinhao Wang</h1>
                 <p>
                     于我而言，创作就是吃什么拉什么的过程，<br>
                     它应该日常化，应该关注我们摄入了什么。
                 </p>
-
             </div>
 
         </section>
 
+        <!-- 下滑引导提示 -->
+        <div class="scroll-down-hint">SCROLL ↓</div>
+
     </main>
 
+
+    <!-- ========================================
+         INSTALLATION SECTION (第二屏独立装置)
+         ======================================== -->
+
+    <section class="installation-section">
+
+        <div class="installation-header">
+            <h2 class="installation-title">Installation: Undercarriage / 沥青下潜</h2>
+            <div class="installation-controls">
+                <button id="btn-next-passage" class="inst-btn" type="button">[ NEXT ESSAY ]</button>
+            </div>
+        </div>
+
+        <div class="viewport-wrapper">
+            <canvas id="undercarriage-canvas"></canvas>
+        </div>
+
+        <div class="installation-log">
+            <div class="log-label">// ACCUMULATED TRANSCRIPT</div>
+            <div id="log-text" class="log-content">等待车辆碾过...</div>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         SMART SLIDE HEADER SCRIPT
+         ======================================== -->
+
+    <script>
+        const header = document.querySelector(".site-header");
+        let lastScrollY = window.pageYOffset;
+
+        window.addEventListener("scroll", () => {
+            const currentScrollY = window.pageYOffset;
+
+            if (currentScrollY <= 80) {
+                header.classList.remove("header-hidden");
+                lastScrollY = currentScrollY;
+                return;
+            }
+
+            if (Math.abs(currentScrollY - lastScrollY) < 10) {
+                return;
+            }
+
+            if (currentScrollY > lastScrollY) {
+                header.classList.add("header-hidden");
+            } else {
+                header.classList.remove("header-hidden");
+            }
+
+            lastScrollY = currentScrollY;
+        }, { passive: true });
+    </script>
+
+    <!-- 引入独立文件夹内的装置动画引擎 -->
+    <script src="installation/undercarriage.js"></script>
 
 </body>
 
