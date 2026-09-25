@@ -9,8 +9,8 @@
 
     <title>Jinhao Wang</title>
 
-    <link rel="stylesheet" href="style.css?v=3">
-    <!-- 引入独立文件夹内的装置样式 -->
+    <link rel="stylesheet" href="style.css?v=4">
+    <!-- 引入独立装置样式 -->
     <link rel="stylesheet" href="installation/undercarriage.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
@@ -43,7 +43,7 @@
 
         <section class="hero">
 
-            <!-- Hero Image -->
+            <!-- Hero Image (精准保留你的原路径) -->
             <div class="hero-image">
                 <img
                     src="images/digital collage/home-hero-small.jpg"
@@ -62,32 +62,21 @@
 
         </section>
 
-        <!-- 下滑引导提示 -->
-        <div class="scroll-down-hint">SCROLL ↓</div>
-
     </main>
 
 
     <!-- ========================================
-         INSTALLATION SECTION (第二屏独立装置)
+         INSTALLATION SECTION (第二屏：纯粹影像装置)
          ======================================== -->
 
     <section class="installation-section">
 
         <div class="installation-header">
-            <h2 class="installation-title">Installation: Undercarriage / 沥青下潜</h2>
-            <div class="installation-controls">
-                <button id="btn-next-passage" class="inst-btn" type="button">[ NEXT ESSAY ]</button>
-            </div>
+            <h2 class="installation-title">Installation: Undercarriage</h2>
         </div>
 
         <div class="viewport-wrapper">
             <canvas id="undercarriage-canvas"></canvas>
-        </div>
-
-        <div class="installation-log">
-            <div class="log-label">// ACCUMULATED TRANSCRIPT</div>
-            <div id="log-text" class="log-content">等待车辆碾过...</div>
         </div>
 
     </section>
@@ -124,7 +113,7 @@
         }, { passive: true });
     </script>
 
-    <!-- 引入独立文件夹内的装置动画引擎 -->
+    <!-- 引入装置驱动引擎 -->
     <script src="installation/undercarriage.js"></script>
 
 </body>
