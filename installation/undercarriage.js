@@ -1,5 +1,6 @@
 /* =========================================================
-   INSTALLATION: GRAPHIC CARD DEALER (极简图形发牌器)
+   INSTALLATION: GRAPHIC CARD DEALER
+   严格串行逐张出牌 / 统一排版节奏
    ========================================================= */
 
 (function () {
@@ -10,7 +11,6 @@
         "然而首先我是一个野鬼，游荡在雾林里不知归处"
     ];
 
-    // 将整句拆为单个字符数组
     const essays = rawEssays.map(s => s.split(""));
 
     let currentEssayIdx = 0;
@@ -27,70 +27,74 @@
 
         gridEl.innerHTML = "";
         const chars = essays[currentEssayIdx];
-
-        // 1. 先在网格中生成空占位格，固定好排版结构
         const cardElements = [];
-        chars.forEach((char) => {
+
+        // 递归式严格逐张发牌：发完一张，再从发牌口推出下一张
+        function dealCardStep(index) {
+            if (index >= chars.length) {
+                // 当前段落全部牌发完，停顿 3.6 秒供阅读，随后柔和淡出换下一段
+                setTimeout(() => {
+                    cardElements.forEach(c => c.classList.add("card-fadeout"));
+                    setTimeout(() => {
+                        currentEssayIdx = (currentEssayIdx + 1) % essays.length;
+                        isDealing = false;
+                        dealNextEssay();
+                    }, 550);
+                }, 3600);
+                return;
+            }
+
+            const char = chars[index];
+
+            // 1. 在网格末端追加实际 DOM 卡片
             const card = document.createElement("div");
             card.className = "dealer-card";
-            if (char === "，" || char === "。") {
-                card.classList.add("card-punct");
-            }
-            card.textContent = char;
+            card.textContent = char; // 标点符号与文字完全统一，不做任何特异化处理
             gridEl.appendChild(card);
             cardElements.push(card);
-        });
 
-        // 2. 依次一张张发牌（计算从发牌口到目标格子的位移轨迹）
-        const slotRect = slotEl.getBoundingClientRect();
-        const slotCenterX = slotRect.left + slotRect.width / 2;
-        const slotCenterY = slotRect.top + slotRect.height / 2;
+            // 2. 测量发牌口与此卡最终落位点之间的空间矢量差
+            const slotRect = slotEl.getBoundingClientRect();
+            const slotCenterX = slotRect.left + slotRect.width / 2;
+            const slotCenterY = slotRect.top + slotRect.height / 2;
 
-        chars.forEach((char, index) => {
-            setTimeout(() => {
-                const card = cardElements[index];
-                const cardRect = card.getBoundingClientRect();
-                const targetCenterX = cardRect.left + cardRect.width / 2;
-                const targetCenterY = cardRect.top + cardRect.height / 2;
+            const cardRect = card.getBoundingClientRect();
+            const targetCenterX = cardRect.left + cardRect.width / 2;
+            const targetCenterY = cardRect.top + cardRect.height / 2;
 
-                // 计算相对发牌口的坐标差
-                const deltaX = slotCenterX - targetCenterX;
-                const deltaY = slotCenterY - targetCenterY;
+            const deltaX = slotCenterX - targetCenterX;
+            const deltaY = slotCenterY - targetCenterY;
 
-                // 发牌槽微震反馈
-                slotEl.classList.add("slot-eject");
-                setTimeout(() => slotEl.classList.remove("slot-eject"), 120);
+            // 3. 将新牌瞬间置于发牌口内（微小缩放、不可见）
+            card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.6)`;
+            card.style.opacity = "0";
 
-                // 让卡片从发牌口初生并飞到目标位置
-                card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.3) rotate(-10deg)`;
-                card.style.opacity = "0";
+            // 4. 发牌口微震动作
+            slotEl.classList.add("slot-eject");
+            setTimeout(() => slotEl.classList.remove("slot-eject"), 100);
 
+            // 5. 触发物理滑行动画飞向指定点
+            requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        card.classList.add("card-dealt");
-                        // 带着极微弱的手绘自然角度（-1.5° ~ +1.5°）
-                        const subtleRot = (Math.random() - 0.5) * 3;
-                        card.style.transform = `translate(0, 0) scale(1) rotate(${subtleRot}deg)`;
-                        card.style.opacity = "1";
-                    });
+                    card.classList.add("card-dealt");
+                    // 极细微的自然手绘角度偏差 (-1.2° ~ +1.2°)
+                    const subtleRot = (Math.random() - 0.5) * 2.4;
+                    card.style.transform = `translate(0, 0) scale(1) rotate(${subtleRot}deg)`;
+                    card.style.opacity = "1";
                 });
+            });
 
-                // 全部发完后的停顿与下一轮收牌
-                if (index === chars.length - 1) {
-                    setTimeout(() => {
-                        // 整体向下收牌/淡出
-                        cardElements.forEach(c => c.classList.add("card-fadeout"));
-                        setTimeout(() => {
-                            currentEssayIdx = (currentEssayIdx + 1) % essays.length;
-                            isDealing = false;
-                            dealNextEssay();
-                        }, 800);
-                    }, 3500); // 读完留白 3.5 秒
-                }
-            }, index * 180); // 每 180ms 发出一张牌，节奏分明
-        });
+            // 6. 等待当前这张牌飞行落定后（约 190ms），再发下一张牌
+            const interval = (char === "，" || char === "。") ? 260 : 190;
+            setTimeout(() => {
+                dealCardStep(index + 1);
+            }, interval);
+        }
+
+        // 启动第一张牌发放
+        dealCardStep(0);
     }
 
-    // 初次加载延迟 0.5 秒启动
-    setTimeout(dealNextEssay, 500);
+    // 页面就绪后稍作停顿开始首轮发牌
+    setTimeout(dealNextEssay, 400);
 })();
