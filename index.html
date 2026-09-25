@@ -10,7 +10,6 @@
     <title>Jinhao Wang</title>
 
     <link rel="stylesheet" href="style.css?v=5">
-    <!-- 引入独立发牌装置样式 -->
     <link rel="stylesheet" href="installation/undercarriage.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
@@ -43,7 +42,7 @@
 
         <section class="hero">
 
-            <!-- Hero Image (保留原路径) -->
+            <!-- Hero Image -->
             <div class="hero-image">
                 <img
                     src="images/digital collage/home-hero-small.jpg"
@@ -66,17 +65,19 @@
 
 
     <!-- ========================================
-         INSTALLATION: GRAPHIC CARD DEALER (第二屏：极简图形发牌器)
+         INSTALLATION: GRAPHIC CARD DEALER (第二屏)
          ======================================== -->
 
     <section class="installation-section">
 
-        <!-- 顶部发牌箱（手绘线框几何体） -->
-        <div id="dealer-slot" class="dealer-dispenser-box">
-            <div class="dealer-slot"></div>
+        <!-- 立体发牌机底座与旋转仓 -->
+        <div class="dealer-chassis-stage">
+            <div id="dealer-slot" class="dealer-dispenser-box">
+                <div class="dealer-slot"></div>
+            </div>
         </div>
 
-        <!-- 牌面落位排布区（第一排、第二排网格） -->
+        <!-- 固定卡槽阵列牌桌 -->
         <div class="dealer-table">
             <div id="cards-grid" class="cards-grid"></div>
         </div>
@@ -115,7 +116,7 @@
         }, { passive: true });
     </script>
 
-    <!-- 引入极简发牌驱动逻辑 -->
+    <!-- 极简立体发牌逻辑 -->
     <script src="installation/undercarriage.js"></script>
 
 </body>
