@@ -1,6 +1,6 @@
 /* =========================================================
    INSTALLATION: KINETIC GRAPHIC DEALER
-   喜茶稚拙手写骨架 / 石墨铅笔颗粒感 / 2倍速超高速连发
+   方案 C：解密档案旧铅字 / 2H 极淡浅灰 / 4.0px 粗粝炭棒颗粒
    ========================================================= */
 
 .installation-section {
@@ -107,9 +107,9 @@
 
 /* 
    单张卡牌实体：
-   1. 喜茶风稚拙字体骨架 ('ZCOOL KuaiLe', 'Yuanti SC', '幼圆')
-   2. 不那么黑的深灰石墨色 (#464442)
-   3. 铅笔摩擦纸面的碳粉微颗粒毛边 (Graphite Dust Halation)
+   1. 字体：方案 C 解密档案旧铅字（Noto Serif SC）
+   2. 色彩：2H 极淡浅灰（#6c6b69）
+   3. 滤镜：4.0px 粗粝炭棒微观纸质咬合
 */
 .dealer-card {
     position: absolute;
@@ -117,28 +117,25 @@
     left: 0;
     width: 52px;
     height: 62px;
-    border: 1px solid rgba(17, 17, 17, 0.18);
+    border: 1px solid rgba(17, 17, 17, 0.16);
     background: #fafafa;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    /* --- 核心：喜茶稚拙骨架体系 --- */
-    font-family: "ZCOOL KuaiLe", "Yuanti SC", "STYuanti", "YouYuan", "Hiragino Sans GB", sans-serif;
+    /* 方案 C 字体骨架 */
+    font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
     font-size: 22px;
-    font-weight: 400;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 
-    /* --- 核心：非死黑的真实石墨深灰色 --- */
-    color: #464442;
+    /* 2H 极淡浅灰 */
+    color: #6c6b69;
 
-    /* --- 核心：石墨在纸纤维上的颗粒感与毛糙边缘扩散 --- */
-    text-shadow: 
-        0 0 0.7px rgba(60, 58, 56, 0.65),
-        0.4px 0.4px 0.5px rgba(25, 25, 25, 0.22);
+    /* 挂载 4.0px 粗粝炭棒滤镜 */
+    filter: url(#pencil-texture);
 
-    /* 纸张微透明渗透感 */
-    opacity: 0.94;
+    opacity: 0.90;
     -webkit-font-smoothing: antialiased;
 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
