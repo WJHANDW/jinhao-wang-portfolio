@@ -1,6 +1,6 @@
 /* =========================================================
    INSTALLATION: KINETIC GRAPHIC DEALER
-   整席汇聚回收 (0.8x) / 无框自然散乱废牌堆 / 方案 C 铅印石墨质感
+   纯俯视极简哑光圆盘 (95px) + 极隐蔽狭缝 (15%) + 整席汇聚回收
    ========================================================= */
 
 .installation-section {
@@ -18,77 +18,74 @@
     overflow: hidden;
 }
 
-/* 顶部水平集群：发牌机 + 废牌堆 */
+/* 顶部水平集群：95px 圆盘 + 废牌堆 */
 .dealer-top-cluster {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 55px;
+    gap: 60px;
     margin-bottom: 50px;
     position: relative;
     z-index: 30;
 }
 
-/* 立体发牌机舞台 */
+/* 圆盘定位舞台 */
 .dealer-chassis-stage {
-    perspective: 900px;
-    width: 130px;
-    height: 90px;
+    width: 95px;
+    height: 95px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.dealer-dispenser-box {
+/* 
+   核心：95px 纯俯视极简哑光圆盘
+   同轴自转 (rotateZ)，完全消除生硬的伪 3D 俯仰
+*/
+.dealer-minimal-disc {
     position: relative;
-    width: 90px;
-    height: 66px;
-    background: #e5e5e5;
-    border: 1px solid rgba(17, 17, 17, 0.28);
-    border-radius: 4px;
-    transform-style: preserve-3d;
-    transform: rotateX(22deg) rotateZ(0deg);
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 45% 45%, #ebebeb 0%, #dedede 75%, #d5d5d5 100%);
+    border: 1px solid rgba(17, 17, 17, 0.16);
     box-shadow: 
-        0 1px 0 #cccccc,
-        0 3px 0 #bcbcbc,
-        0 10px 25px rgba(0, 0, 0, 0.07);
+        0 4px 14px rgba(0, 0, 0, 0.05),
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    padding-bottom: 7px;
+    padding-bottom: 12px;
     box-sizing: border-box;
+    transform-origin: center center;
+    transform: rotateZ(0deg);
     transition: transform 0.1s cubic-bezier(0.2, 0.9, 0.3, 1.1);
 }
 
-.dealer-dispenser-box::before {
-    content: "";
-    position: absolute;
-    top: 6px;
-    width: 64px;
-    height: 12px;
-    background: #d6d6d6;
-    border: 1px solid rgba(17, 17, 17, 0.16);
-    border-radius: 2px;
-}
-
+/* 
+   核心：15% 极隐蔽出牌口凹痕
+   与盘面颜色高度融合，几乎只有极淡的微凹折痕
+*/
 .dealer-slot {
     position: relative;
-    width: 66px;
-    height: 9px;
-    background: #181818;
-    border-radius: 2px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.85);
-    z-index: 2;
+    width: 52px;
+    height: 3px;
+    background: rgba(17, 17, 17, 0.15);
+    border-radius: 1.5px;
+    box-shadow: inset 0 1px 1.5px rgba(0, 0, 0, 0.18);
+    transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 
-.dealer-dispenser-box.ejecting {
-    transform: rotateX(25deg) translateY(2px) !important;
+/* 吐牌瞬时微凹震颤反馈 */
+.dealer-minimal-disc.ejecting .dealer-slot {
+    background: rgba(17, 17, 17, 0.35);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* 
-   无框自然散乱废牌堆定位基点：
-   完全没有边框和盒子约束，直接裸露在桌面上
+   无框自然散乱废牌堆定位基点
 */
 .discard-free-pile {
     position: relative;
@@ -128,7 +125,7 @@
 
 /* 
    单张卡牌实体：
-   方案 C：Noto Serif SC + 2H 极淡浅灰 + 4.0px 炭粒
+   方案 C：Noto Serif SC + 2H 极淡浅灰 + 4.0px 粗粝炭棒
 */
 .dealer-card {
     position: absolute;
@@ -174,8 +171,7 @@
 }
 
 /* 
-   方案 2：整席汇聚回收动画 (0.8x 飞行速率，约 0.45s)
-   带浮起和高速归入废牌堆动线
+   整席汇聚回收动画 (0.8x 动量速率，约 0.45s)
 */
 .dealer-card.in-recall {
     transition: 
@@ -214,19 +210,17 @@
         padding: 75px 16px 60px;
     }
     .dealer-top-cluster {
-        gap: 30px;
+        gap: 35px;
         margin-bottom: 35px;
     }
-    .dealer-chassis-stage {
-        height: 75px;
-    }
-    .dealer-dispenser-box {
+    .dealer-chassis-stage,
+    .dealer-minimal-disc {
         width: 78px;
-        height: 56px;
+        height: 78px;
     }
     .dealer-slot {
-        width: 54px;
-        height: 8px;
+        width: 42px;
+        height: 2.5px;
     }
     .cards-grid {
         gap: 8px 6px;
