@@ -9,12 +9,12 @@
 
     <title>Jinhao Wang</title>
 
-    <!-- 引入开源稚拙手写字库（类喜茶手写感：ZCOOL KuaiLe / Ma Shan Zheng） -->
+    <!-- 方案 C：解密档案旧铅字库 (Noto Serif SC) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=8">
     <link rel="stylesheet" href="installation/undercarriage.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
@@ -23,6 +23,16 @@
 
 <body>
 
+    <!-- 
+       方案 C 定制：4.0px 粗粝炭棒石墨滤镜
+    -->
+    <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
+        <filter id="pencil-texture">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.0" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+            <feComposite in="displaced" in2="noise" operator="arithmetic" k1="0.25" k2="0.8" k3="0" k4="0" />
+        </filter>
+    </svg>
 
     <!-- ========================================
          SITE NAVIGATION
@@ -121,7 +131,7 @@
         }, { passive: true });
     </script>
 
-    <!-- 极简立体发牌驱动逻辑 -->
+    <!-- 极简发牌逻辑 -->
     <script src="installation/undercarriage.js"></script>
 
 </body>
