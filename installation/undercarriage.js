@@ -1,6 +1,6 @@
 /* =========================================================
    INSTALLATION: KINETIC GRAPHIC DEALER
-   整席汇聚回收 (方案2 / 0.8x) + 恒定自然散乱废牌堆 (±7.2° / 8px)
+   纯俯视极简圆盘 (95px) + 极隐蔽狭缝 (15%) + 整席汇聚回收
    ========================================================= */
 
 (function () {
@@ -51,17 +51,15 @@
     let currentEssayIdx = getRandomEssayIndex(-1);
     let isDealing = false;
 
-    const dispenserBox = document.getElementById("dealer-slot");
+    const dispenserDisc = document.getElementById("dealer-slot");
     const gridEl = document.getElementById("cards-grid");
     const discardPileEl = document.getElementById("discard-free-pile");
 
-    if (!dispenserBox || !gridEl || !discardPileEl) return;
+    if (!dispenserDisc || !gridEl || !discardPileEl) return;
 
     // --- 1. 初始化自然散乱常驻废牌堆 (恒定 12 张，高度固定) ---
     const initialChars = ["审", "判", "犬", "雾", "鬼", "痕", "雨", "絮", "语", "尺", "度", "脉"];
-    const baseStackSlots = [];
 
-    // 生成常驻散乱底牌（极散漫乱度：±7.2°, 8px 随机位移）
     for (let i = 0; i < 12; i++) {
         const sheet = document.createElement("div");
         sheet.className = "discarded-sheet";
@@ -70,14 +68,11 @@
         const rot = (Math.random() - 0.5) * 14.4; // ±7.2°
         const jx = (Math.random() - 0.5) * 16;   // ±8px
         const jy = (Math.random() - 0.5) * 16;
-        
-        // 极微厚度递增（最多累积 3px，高度恒定）
-        const liftY = -(i * 0.25);
+        const liftY = -(i * 0.25); // 极微厚度，高度恒定
 
         sheet.style.transform = `translate3d(${jx}px, ${jy + liftY}px, 0) rotateZ(${rot}deg)`;
         sheet.style.zIndex = (i + 1).toString();
         discardPileEl.appendChild(sheet);
-        baseStackSlots.push({ rot, jx, jy, liftY });
     }
 
     // --- 2. 发牌与整席汇聚回收循环 ---
@@ -100,9 +95,11 @@
         gridEl.appendChild(fragment);
 
         // 一次性缓存全局坐标
-        const slotRect = dispenserBox.getBoundingClientRect();
-        const slotCenterX = slotRect.left + slotRect.width / 2;
-        const slotCenterY = slotRect.top + slotRect.height * 0.72;
+        const discRect = dispenserDisc.getBoundingClientRect();
+        const discCenterX = discRect.left + discRect.width / 2;
+        const discCenterY = discRect.top + discRect.height / 2;
+        // 95px 圆盘下边缘出牌口基准
+        const slotEjectY = discRect.top + discRect.height * 0.88;
 
         const pileRect = discardPileEl.getBoundingClientRect();
         const pileCenterX = pileRect.left + pileRect.width / 2;
@@ -120,9 +117,10 @@
 
         function dealCardStep(index) {
             if (index >= chars.length) {
-                dispenserBox.style.transform = `rotateX(22deg) rotateZ(0deg)`;
+                // 发完全部牌，圆盘平滑回正 0deg
+                dispenserDisc.style.transform = `rotateZ(0deg)`;
 
-                // 发完全部牌，定格 0.5s 后执行【方案 2：整席悬浮汇聚回收 (0.8x)】
+                // 定格 0.5s 后执行整席悬浮汇聚回收 (0.8x)
                 setTimeout(() => {
                     executeCollectiveFlockRecall();
                 }, 500);
@@ -145,22 +143,23 @@
             targetAnchor.appendChild(card);
             cardElements.push(card);
 
-            const deltaX = slotCenterX - (coords.x + jitterX);
-            const deltaY = slotCenterY - (coords.y + jitterY);
+            const deltaX = discCenterX - (coords.x + jitterX);
+            const deltaY = slotEjectY - (coords.y + jitterY);
 
-            const angleRad = Math.atan2((coords.x + jitterX) - slotCenterX, (coords.y + jitterY) - slotCenterY);
+            // 圆盘纯俯视同轴旋转角度计算
+            const angleRad = Math.atan2((coords.x + jitterX) - discCenterX, (coords.y + jitterY) - discCenterY);
             let aimDeg = (angleRad * (180 / Math.PI)) * 0.72;
-            aimDeg = Math.max(-26, Math.min(26, aimDeg));
-            dispenserBox.style.transform = `rotateX(22deg) rotateZ(${-aimDeg}deg)`;
+            aimDeg = Math.max(-28, Math.min(28, aimDeg));
+            dispenserDisc.style.transform = `rotateZ(${-aimDeg}deg)`;
 
-            // 出牌口初始
+            // 出牌口初始位置
             card.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) rotateZ(${-aimDeg}deg)`;
             card.style.opacity = "0.7";
 
             // 瞬间射出
             setTimeout(() => {
-                dispenserBox.classList.add("ejecting");
-                setTimeout(() => dispenserBox.classList.remove("ejecting"), 50);
+                dispenserDisc.classList.add("ejecting");
+                setTimeout(() => dispenserDisc.classList.remove("ejecting"), 50);
 
                 requestAnimationFrame(() => {
                     card.classList.add("in-flight");
@@ -176,44 +175,36 @@
             }, interval);
         }
 
-        // --- 方案 2：整席悬浮汇聚回收核心执行器 ---
+        // --- 整席悬浮汇聚回收核心执行器 (0.8x 速率) ---
         function executeCollectiveFlockRecall() {
-            // 全场卡片同时微浮起并飞向废牌堆
             cardElements.forEach((card, idx) => {
                 const anchorCoord = anchorCoords[idx];
                 
-                // 计算飞往废牌堆顶部的位移向量
                 const targetPileX = pileCenterX - anchorCoord.x;
                 const targetPileY = pileCenterY - anchorCoord.y;
 
-                // 散落到废牌堆顶的随机偏角 (±7.2° / 8px)
                 const pileRot = (Math.random() - 0.5) * 14.4;
                 const pileJx = (Math.random() - 0.5) * 16;
                 const pileJy = (Math.random() - 0.5) * 16;
-
-                // 恒定高度：无论回收多少张，高度始终控制在微小起伏区间内，绝不递增
-                const fixedLift = -((idx % 8) * 0.35);
+                const fixedLift = -((idx % 8) * 0.35); // 恒定高度
 
                 card.classList.remove("in-flight");
                 card.classList.add("in-recall");
 
-                // 极微交错延迟 (5ms)，保持同时起飞的汇聚感
                 setTimeout(() => {
                     card.style.transform = `translate3d(${targetPileX + pileJx}px, ${targetPileY + pileJy + fixedLift}px, 0) rotateZ(${pileRot}deg)`;
                     card.style.zIndex = (50 + idx).toString();
                 }, idx * 5);
             });
 
-            // 飞行时长 0.45s (对应 0.8x 动量速率) + 0.1s 缓冲落定
+            // 0.45s 飞行 + 0.1s 缓冲落定
             setTimeout(() => {
-                // 将本次回收的卡片悄然更新入废牌堆顶部的几张展示牌，保持视觉恒定
                 const topSheets = discardPileEl.querySelectorAll(".discarded-sheet");
                 const replaceCount = Math.min(cardElements.length, topSheets.length);
                 for (let k = 0; k < replaceCount; k++) {
                     topSheets[topSheets.length - 1 - k].textContent = cardElements[cardElements.length - 1 - k].textContent;
                 }
 
-                // 清空牌桌临时卡牌，无缝开启下一轮随机发牌
                 currentEssayIdx = getRandomEssayIndex(currentEssayIdx);
                 isDealing = false;
                 dealNextEssay();
